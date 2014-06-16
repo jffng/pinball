@@ -19,6 +19,7 @@ var b2World = Box2D.Dynamics.b2World;
 var b2MassData = Box2D.Collision.Shapes.b2MassData;
 var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
 var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
+var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;	
 var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
 
 function init () {
@@ -34,13 +35,16 @@ function init () {
 	world.SetDebugDraw(debugDraw);
 
 	pinballs = [];
+	obstacles = [];
 
 	$(window).on('click', function(e){
-		console.log(e.clientX);
-		pinballs[i] = new Pinball(e.clientX / SCALE, e.clientY / SCALE + 0.1 );	
+		// pinballs[i] = new Pinball(e.clientX / SCALE, e.clientY / SCALE + 0.1 );	
+		obstacles.push(new Can( e.clientX / SCALE, e.clientY / SCALE, undefined ));
 	});
 
-	addWall(walls);
+	var leftFlipper = new Flipper(5,5);
+
+	var walls = new Wall(boundaries);
 
 	requestAnimFrame(update);
 }
@@ -69,43 +73,7 @@ var Pinball = function (_x, _y) {
 	world.CreateBody( this.bodyDef ).CreateFixture( this.fixDef );	
 }
 
-function addWall(bodyEntities) {
-	this.bodyDef = new b2BodyDef;
-    this.bodyDef.type = b2Body.b2_staticBody;
-
- 	this.fixDef = new b2FixtureDef;   
-    
-	for(var id in bodyEntities) {
-		var entity = bodyEntities[id];
-
-		this.bodyDef.position.x = entity.x;
-		this.bodyDef.position.y = entity.y;
-		this.bodyDef.userData = entity.id;
-		var body = this.world.CreateBody(this.bodyDef);
-
-		if (entity.polys) {
-			for (var j = 0; j < entity.polys.length; j++) {
-				var points = entity.polys[j];
-				var vecs = [];
-				for (var i = 0; i < points.length; i++) {
-					var vec = new b2Vec2();
-					vec.Set(points[i].x, points[i].y);
-					vecs[i] = vec;
-				}
-				this.fixDef.shape = new b2PolygonShape;
-				this.fixDef.shape.SetAsArray(vecs, vecs.length);
-				body.CreateFixture(this.fixDef);
-			}
-		} else {
-			this.fixDef.shape = new b2PolygonShape;
-			this.fixDef.shape.SetAsBox(entity.halfWidth, entity.halfHeight);
-			body.CreateFixture(this.fixDef);
-		}
-		world.CreateBody( bodyDef ).CreateFixture( fixDef );    
-	}
-}
-
-var walls = {
+var boundaries = {
 	"arrow": { 
 		id: "arrow", 
 		x: 10, 

@@ -1,22 +1,21 @@
 // Pinball Flipper object
 
-
-var Flipper = function() {
+var Flipper = function(_xPos, _yPos) {
 	var bodyDef = new b2BodyDef;
 	bodyDef.type = b2Body.b2_dynamicBody;
-	bodyDef.position.x = CANVAS_WIDTH / SCALE / 2;
-	bodyDef.position.y = CANVAS_HEIGHT / SCALE / 2;
+	bodyDef.position.x = _xPos;
+	bodyDef.position.y = _yPos;
 
-	sawBody = world.CreateBody(bodyDef);
+	this.sawBody = world.CreateBody(bodyDef);
 
 	var sawFixtureDef = new b2FixtureDef;
 	sawFixtureDef.shape = new b2PolygonShape;
 	sawFixtureDef.shape.SetAsBox( 1.1, 0.2 );
 	sawFixtureDef.density = 2.0;
 	sawFixtureDef.friction = 0.0;
-	sawBody.CreateFixture(sawFixtureDef);
+	this.sawBody.CreateFixture(sawFixtureDef);
 
-	var localCenter = sawBody.GetWorldCenter();
+	var localCenter = this.sawBody.GetWorldCenter();
 	localCenter.Add( new b2Vec2( -0.8, 0) );
 
 	var circleBodyDef = new b2BodyDef;
@@ -30,14 +29,14 @@ var Flipper = function() {
 	circleBody = world.CreateBody(circleBodyDef);
 	circleBody.CreateFixture(circleFixtureDef);
 
-	revoluteJointDef = new b2RevoluteJointDef;
-	revoluteJointDef.Initialize(sawBody, circleBody, localCenter);
-	revoluteJointDef.upperAngle = 0.6;
-	revoluteJointDef.lowerAngle = -0.6;
-	revoluteJointDef.enableLimit = true;
-	revoluteJointDef.maxMotorTorque = 0.5;
-	revoluteJointDef.motorSpeed = 0.0;
-	revoluteJointDef.enableMotor = true;
+	this.revoluteJointDef = new b2RevoluteJointDef;
+	this.revoluteJointDef.Initialize(this.sawBody, circleBody, localCenter);
+	this.revoluteJointDef.upperAngle = 0.6;
+	this.revoluteJointDef.lowerAngle = -0.6;
+	this.revoluteJointDef.enableLimit = true;
+	this.revoluteJointDef.maxMotorTorque = 0.5;
+	this.revoluteJointDef.motorSpeed = 0.0;
+	this.revoluteJointDef.enableMotor = true;
 
-	world.CreateJoint(revoluteJointDef);
+	world.CreateJoint(this.revoluteJointDef);
 }
