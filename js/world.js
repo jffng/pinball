@@ -30,8 +30,8 @@ function init () {
 	world = new b2World( new b2Vec2(0, 0), true );
 	var walls = new Wall(boundaries);
 
-	rightFlipperTest = new Flipper(15, 15, "right", "bottom");
-	leftFlipperTest = new Flipper(15, 15, "left", "bottom");
+	rightFlipperTest = new Flipper(20, 20, "right", "bottom");
+	leftFlipperTest = new Flipper(20, 20, "left", "bottom");
 
 	$(window).on('click', function(e){
 		// obstacles.push(new Can( e.clientX / SCALE, e.clientY / SCALE, undefined ));
@@ -68,51 +68,6 @@ function init () {
 		document.getElementById('c').width = CANVAS_WIDTH;
 		document.getElementById('c').height = CANVAS_HEIGHT;		
 	})
-}
-
-var FlipperTest = function(_xPos, _yPos) {
-	var bodyDef = new b2BodyDef;
-	bodyDef.type = b2Body.b2_dynamicBody;
-	bodyDef.position.x = _xPos;
-	bodyDef.position.y = _yPos;
-
-	this.sawBody = world.CreateBody(bodyDef);
-
-	var sawFixtureDef = new b2FixtureDef;
-	sawFixtureDef.shape = new b2PolygonShape;
-	sawFixtureDef.shape.SetAsBox( 2.5, 0.5 );
-	sawFixtureDef.density = 2.0;
-	sawFixtureDef.friction = 0.0;
-	this.sawBody.CreateFixture(sawFixtureDef);
-
-	var localCenter = this.sawBody.GetWorldCenter();
-
-	// adjust the joint position according to whether it is a left or right flipper
-	// torque is clockwise by default (i.e. negative torque is counter-clockwise)
-	localCenter.Add( new b2Vec2( 2 , 0 ) );
-	this.torque = 2000;
-
-	var circleBodyDef = new b2BodyDef;
-	circleBodyDef.position.x = localCenter.x;
-	circleBodyDef.position.y = localCenter.y;
-	circleBodyDef.type = b2Body.b2_staticBody;
-
-	var circleFixtureDef = new b2FixtureDef;
-	circleFixtureDef.shape = new b2CircleShape( 0.1 );
-
-	circleBody = world.CreateBody(circleBodyDef);
-	circleBody.CreateFixture(circleFixtureDef);
-
-	this.revoluteJointDef = new b2RevoluteJointDef;
-	this.revoluteJointDef.Initialize(this.sawBody, circleBody, localCenter);	
-	this.revoluteJointDef.upperAngle =  3 / 4 * Math.PI;
-	this.revoluteJointDef.lowerAngle =  1 / 4 * Math.PI;
-	this.revoluteJointDef.enableLimit = true;
-	this.revoluteJointDef.maxMotorTorque = 0.5;
-	this.revoluteJointDef.motorSpeed = 0.0;
-	this.revoluteJointDef.enableMotor = true;	
-
-	world.CreateJoint(this.revoluteJointDef);	
 }
 
 function update() {
