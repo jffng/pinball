@@ -1,22 +1,86 @@
-// Pinball Flipper object
+/**
+ *
+ * Flipper creates a new pinball flipper and adds it to the physics world.
+ *
+ * @param {number} _xPos [description]
+ * @param {number} _yPos [description]
+ * @param {string} type [description]
+ */
 
-var Flipper = function(_xPos, _yPos) {
+var Flipper = function(_xPos, _yPos, type, orientation) {
+	var flipperWidth = 2.5,
+		flipperHeight = 0.5;
+
+	this.orientation = orientation;
+	this.type = type;
 	var bodyDef = new b2BodyDef;
 	bodyDef.type = b2Body.b2_dynamicBody;
-	bodyDef.position.x = _xPos;
-	bodyDef.position.y = _yPos;
+
+	if(type == "left") {
+		// set flipping torque to clockwise
+		this.flipTorque = -1;
+
+		switch(this.orientation){
+			case "top":
+				bodyDef.position.x = _xPos + 1.25 * flipperWidth;
+				bodyDef.position.y = _yPos;
+				break;
+			case "bottom":
+				bodyDef.position.x = _xPos - 1.25 * flipperWidth;
+				bodyDef.position.y = _yPos;
+				break;
+			case "left":
+				bodyDef.position.x = _xPos;
+				bodyDef.position.y = _yPos - 1.25 * flipperWidth;
+				break;
+			case "right":
+				bodyDef.position.x = _xPos;
+				bodyDef.position.y = _yPos + 1.25 * flipperWidth;
+				break;													
+		}
+	
+	}
+
+	else if(type == "right") {
+		// set flipping torque to counter clockwise
+		this.flipTorque = 1;
+
+		switch(this.orientation){
+			case "top":
+				bodyDef.position.x = _xPos - 1.25 * flipperWidth;
+				bodyDef.position.y = _yPos;
+				break;
+			case "bottom":
+				bodyDef.position.x = _xPos + 1.25 * flipperWidth;
+				bodyDef.position.y = _yPos;
+				break;
+			case "left":
+				bodyDef.position.x = _xPos;
+				bodyDef.position.y = _yPos + 1.25 * flipperWidth;
+				break;
+			case "right":
+				bodyDef.position.x = _xPos;
+				bodyDef.position.y = _yPos - 1.25 * flipperWidth;
+				break;													
+		}
+	
+	}	
 
 	this.sawBody = world.CreateBody(bodyDef);
 
-	var sawFixtureDef = new b2FixtureDef;
+	// define the shape of the body using the fixture definition
+	var sawFixtureDef = new b2FixtureDef;	
 	sawFixtureDef.shape = new b2PolygonShape;
-	sawFixtureDef.shape.SetAsBox( 1.1, 0.2 );
+	sawFixtureDef.shape.SetAsBox( flipperWidth, flipperHeight );
 	sawFixtureDef.density = 2.0;
 	sawFixtureDef.friction = 0.0;
 	this.sawBody.CreateFixture(sawFixtureDef);
 
 	var localCenter = this.sawBody.GetWorldCenter();
-	localCenter.Add( new b2Vec2( -0.8, 0) );
+
+	// adjust the joint position according to whether it is a left or right flipper
+	if(type == "left")  localCenter.Add( new b2Vec2( - 4 / 5 * flipperWidth, 0 ) );
+	if(type == "right") localCenter.Add( new b2Vec2(   4 / 5 * flipperWidth, 0 ) );
 
 	var circleBodyDef = new b2BodyDef;
 	circleBodyDef.position.x = localCenter.x;
@@ -30,13 +94,66 @@ var Flipper = function(_xPos, _yPos) {
 	circleBody.CreateFixture(circleFixtureDef);
 
 	this.revoluteJointDef = new b2RevoluteJointDef;
-	this.revoluteJointDef.Initialize(this.sawBody, circleBody, localCenter);
-	this.revoluteJointDef.upperAngle = 0.6;
-	this.revoluteJointDef.lowerAngle = -0.6;
+	this.revoluteJointDef.Initialize(this.sawBody, circleBody, localCenter);	
 	this.revoluteJointDef.enableLimit = true;
 	this.revoluteJointDef.maxMotorTorque = 0.5;
 	this.revoluteJointDef.motorSpeed = 0.0;
 	this.revoluteJointDef.enableMotor = true;
 
-	world.CreateJoint(this.revoluteJointDef);
+	switch(this.orientation){
+		case "top": 
+			this.revoluteJointDef.upperAngle = 5 / 4 * Math.PI;
+			this.revoluteJointDef.lowerAngle = 3 / 4 * Math.PI;
+			break;
+
+		case "bottom": 
+			this.revoluteJointDef.upperAngle =   1 / 4 * Math.PI;
+			this.revoluteJointDef.lowerAngle = - 1 / 4 * Math.PI;
+			break;	
+
+		case "left":
+			this.revoluteJointDef.upperAngle = - 1 / 4 * Math.PI;
+			this.revoluteJointDef.lowerAngle = - 3 / 4 * Math.PI;
+			break;
+
+		case "right": 
+			this.revoluteJointDef.upperAngle = 3 / 4 * Math.PI;
+			this.revoluteJointDef.lowerAngle = 1 / 4 * Math.PI;
+			break;				
+	}
+
+	world.CreateJoint(this.revoluteJointDef);	
 }
+
+Flipper.prototype.updateTorque = function(input) {
+	if(input){
+		switch(this.orientation){
+			case "top": 
+				this.sawBody.ApplyTorque(this.torque);
+				break;
+
+			case "bottom": 
+				this.sawBody.ApplyTorque(this.torque);
+				break;
+
+			case "left": 
+				this.sawBody.ApplyTorque(this.torque);
+				break;
+
+			case "right": 
+				this.sawBody.ApplyTorque(this.torque);
+				break;			
+		}
+	}
+	else {
+		switch(true){
+			case this.orientation == "top" || this.orientation == "bottom": 
+				this.sawBody.ApplyTorque(-this.torque / 10);
+				break;
+
+			case this.orientation == "left" || "right": 
+				this.sawBody.ApplyTorque(-this.torque / 10);
+				break;			
+		}
+	}
+};
