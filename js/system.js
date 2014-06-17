@@ -34,4 +34,12 @@ System.prototype._privatedraw = function() {
 // game controller class that spawns / kills ball and keeps track of whether its alive
 // 
 // ball class contains the fixtures and body initializes, attach itself to the collision events
-// 
+
+// spawning players
+//keeping track of score + lives
+
+// level class
+
+// game controller spawns flipper + ball
+
+

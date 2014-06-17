@@ -23,11 +23,11 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 
 		switch(this.orientation){
 			case "top":
-				bodyDef.position.x = _xPos + 5;
+				bodyDef.position.x = _xPos + 3 * flipperWidth;
 				bodyDef.position.y = _yPos;
 				break;
 			case "bottom":
-				bodyDef.position.x = _xPos - 5;
+				bodyDef.position.x = _xPos - flipperWidth;
 				bodyDef.position.y = _yPos;
 				break;
 			case "left":
@@ -35,7 +35,7 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 				bodyDef.position.y = _yPos - 2 * flipperWidth;
 				break;
 			case "right":
-				bodyDef.position.x = _xPos;
+				bodyDef.position.x = _xPos + 1.6 * flipperWidth;
 				bodyDef.position.y = _yPos + 5;
 				break;													
 		}
@@ -48,11 +48,11 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 
 		switch(this.orientation){
 			case "top":
-				bodyDef.position.x = _xPos - 5;
+				bodyDef.position.x = _xPos - 3 * flipperWidth;
 				bodyDef.position.y = _yPos;
 				break;
 			case "bottom":
-				bodyDef.position.x = _xPos + 5;
+				bodyDef.position.x = _xPos + 2 * flipperWidth;
 				bodyDef.position.y = _yPos;
 				break;
 			case "left":

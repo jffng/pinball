@@ -30,8 +30,8 @@ function init () {
 	world = new b2World( new b2Vec2(0, 0), true );
 	var walls = new Wall(boundaries);
 
-	rightFlipperTest = new Flipper(15, 15, "right", "left");
-	leftFlipperTest = new Flipper(15, 15, "left", "left");
+	rightFlipperTest = new Flipper(15, 15, "right", "bottom");
+	leftFlipperTest = new Flipper(15, 15, "left", "bottom");
 
 	$(window).on('click', function(e){
 		// obstacles.push(new Can( e.clientX / SCALE, e.clientY / SCALE, undefined ));
@@ -40,14 +40,14 @@ function init () {
 
 	$(window).on('keypress', function(e){
 		console.log(e.keyCode);
-		if(e.keyCode === 97) rightFlipperTest.sawBody.ApplyTorque(100000); 
-		if(e.keyCode === 100) leftFlipperTest.sawBody.ApplyTorque(-100000);
+		if(e.keyCode === 100) rightFlipperTest.sawBody.ApplyTorque(100000); 
+		if(e.keyCode === 97) leftFlipperTest.sawBody.ApplyTorque(-100000);
 	});
 
 	$(window).on('keyup', function(e){
 		// console.log(e.keyCode);
-		if(e.keyCode === 65) rightFlipperTest.sawBody.ApplyTorque(-100000);
-		if(e.keyCode === 68) leftFlipperTest.sawBody.ApplyTorque(100000);
+		if(e.keyCode === 68) rightFlipperTest.sawBody.ApplyTorque(-100000);
+		if(e.keyCode === 65) leftFlipperTest.sawBody.ApplyTorque(100000);
 		input = false;
 	});
 
