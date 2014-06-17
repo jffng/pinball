@@ -28,6 +28,7 @@ Obstacle.prototype.updatePosition = function (coordinateX, coordinateY) {
  *
  * @param { float } xPos is the initial x-coordinate of the can in the box 2d world space
  * @param { float } yPos is the initial y-coordinate of the can in the box 2d world space
+ * 
  */
 
 var Can = function(xPos, yPos, bodyEntities) {
@@ -35,7 +36,7 @@ var Can = function(xPos, yPos, bodyEntities) {
 	this.inheritsFrom(xPos, yPos, undefined);
 
 	this.fixDef = new b2FixtureDef;
-	this.fixDef.shape = new b2CircleShape( Math.random() + 0.1 )
+	this.fixDef.shape = new b2CircleShape( 1 )
 	this.fixDef.restitution = 1;
 
 	world.CreateBody( this.bodyDef ).CreateFixture( this.fixDef );	
@@ -61,7 +62,7 @@ var Wall = function (bodyEntities) {
 		this.bodyDef.position.x = entity.x;
 		this.bodyDef.position.y = entity.y;
 		this.bodyDef.userData = entity.id;
-		var body = this.world.CreateBody(this.bodyDef);
+		// var body = world.CreateBody(this.bodyDef);
 
 		if (entity.polys) {
 			for (var j = 0; j < entity.polys.length; j++) {
@@ -74,13 +75,13 @@ var Wall = function (bodyEntities) {
 				}
 				this.fixDef.shape = new b2PolygonShape;
 				this.fixDef.shape.SetAsArray(vecs, vecs.length);
-				body.CreateFixture(this.fixDef);
+				// body.CreateFixture(this.fixDef);
 			}
 		} else {
 			this.fixDef.shape = new b2PolygonShape;
 			this.fixDef.shape.SetAsBox(entity.halfWidth, entity.halfHeight);
-			body.CreateFixture(this.fixDef);
+			// body.CreateFixture(this.fixDef);
 		}
-		world.CreateBody( bodyDef ).CreateFixture( fixDef );    
+		world.CreateBody( this.bodyDef ).CreateFixture( this.fixDef );    
 	}
 }

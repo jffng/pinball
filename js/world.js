@@ -2,23 +2,23 @@ $(function () {
 	init();
 });
 
-	var SCALE = 30;
-	var CANVAS_WIDTH = window.innerWidth;
-	var CANVAS_HEIGHT = window.innerHeight;
+var SCALE = 30;
+var CANVAS_WIDTH = window.innerWidth;
+var CANVAS_HEIGHT = window.innerHeight;
 
-	var world;
-	var b2Vec2 = Box2D.Common.Math.b2Vec2;
-	var b2BodyDef = Box2D.Dynamics.b2BodyDef;
-	var b2Body = Box2D.Dynamics.b2Body;
-	var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
-	var b2Fixture = Box2D.Dynamics.b2Fixture;
-	var b2World = Box2D.Dynamics.b2World;
-	var b2MassData = Box2D.Collision.Shapes.b2MassData;
-	var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
-	var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
-	var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;	
-	var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
-	var input = false;
+var world;
+var b2Vec2 = Box2D.Common.Math.b2Vec2;
+var b2BodyDef = Box2D.Dynamics.b2BodyDef;
+var b2Body = Box2D.Dynamics.b2Body;
+var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+var b2Fixture = Box2D.Dynamics.b2Fixture;
+var b2World = Box2D.Dynamics.b2World;
+var b2MassData = Box2D.Collision.Shapes.b2MassData;
+var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
+var b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;	
+var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+var input = false;
 
 function init () {
 	var obstacles = [],
@@ -26,18 +26,15 @@ function init () {
 
 	document.getElementById('c').width = CANVAS_WIDTH;
 	document.getElementById('c').height = CANVAS_HEIGHT;	
-	world = new b2World( new b2Vec2(0, 5), true );
 
-	// leftFlipper = new Flipper( CANVAS_WIDTH / SCALE / 2 , 15 , "left", "bottom");
-	// rightFlipper = new Flipper( CANVAS_WIDTH / SCALE / 2 - 1.6, 20 , "right", "bottom");
-
-	rightFlipperTest = new Flipper(15, 15, "right", "bottom");
-	leftFlipperTest = new Flipper(15, 15, "left", "bottom");
-
+	world = new b2World( new b2Vec2(0, 0), true );
 	var walls = new Wall(boundaries);
 
+	rightFlipperTest = new Flipper(15, 15, "right", "left");
+	leftFlipperTest = new Flipper(15, 15, "left", "left");
+
 	$(window).on('click', function(e){
-		obstacles.push(new Can( e.clientX / SCALE, e.clientY / SCALE, undefined ));
+		// obstacles.push(new Can( e.clientX / SCALE, e.clientY / SCALE, undefined ));
 		pinballs.push(new Pinball(e.clientX / SCALE, e.clientY / SCALE + 0.5 ));			
 	});
 
@@ -51,7 +48,7 @@ function init () {
 		// console.log(e.keyCode);
 		if(e.keyCode === 65) rightFlipperTest.sawBody.ApplyTorque(-100000);
 		if(e.keyCode === 68) leftFlipperTest.sawBody.ApplyTorque(100000);
-		// input = false;
+		input = false;
 	});
 
 	requestAnimFrame(update);
@@ -131,17 +128,17 @@ function update() {
 }; 
 
 var boundaries = {
-	"arrow": { 
-		id: "arrow", 
-		x: 10, 
-		y: 10, 
-		polys: [
-			[{x: -1, y: -1}, {x: 1, y: -1}, {x: 1, y: 1}, {x: -1, y: 1}], // box
-			[{x: 1, y: -1.5}, {x: 2, y: 0}, {x: 1, y: 1.5} ]  // arrow 
-			], 
-		color: "green",
-		friction: 0.2
-	},
+	// "arrow": { 
+	// 	id: "arrow", 
+	// 	x: 10, 
+	// 	y: 10, 
+	// 	polys: [
+	// 		[{x: -1, y: -1}, {x: 1, y: -1}, {x: 1, y: 1}, {x: -1, y: 1}], // box
+	// 		[{x: 1, y: -1.5}, {x: 2, y: 0}, {x: 1, y: 1.5} ]  // arrow 
+	// 		], 
+	// 	color: "green",
+	// 	friction: 0.2
+	// },
 	"bottomWall": {
 		id: "bottomWall",
 		x: CANVAS_WIDTH / SCALE / 2,

@@ -5,6 +5,7 @@
  * @param {number} _xPos [description]
  * @param {number} _yPos [description]
  * @param {string} type [description]
+ * 
  */
 
 var Flipper = function(_xPos, _yPos, type, orientation) {
@@ -22,20 +23,20 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 
 		switch(this.orientation){
 			case "top":
-				bodyDef.position.x = _xPos + 1.25 * flipperWidth;
+				bodyDef.position.x = _xPos + 5;
 				bodyDef.position.y = _yPos;
 				break;
 			case "bottom":
-				bodyDef.position.x = _xPos - 1.25 * flipperWidth;
+				bodyDef.position.x = _xPos - 5;
 				bodyDef.position.y = _yPos;
 				break;
 			case "left":
 				bodyDef.position.x = _xPos;
-				bodyDef.position.y = _yPos - 1.25 * flipperWidth;
+				bodyDef.position.y = _yPos - 2 * flipperWidth;
 				break;
 			case "right":
 				bodyDef.position.x = _xPos;
-				bodyDef.position.y = _yPos + 1.25 * flipperWidth;
+				bodyDef.position.y = _yPos + 5;
 				break;													
 		}
 	
@@ -47,20 +48,20 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 
 		switch(this.orientation){
 			case "top":
-				bodyDef.position.x = _xPos - 1.25 * flipperWidth;
+				bodyDef.position.x = _xPos - 5;
 				bodyDef.position.y = _yPos;
 				break;
 			case "bottom":
-				bodyDef.position.x = _xPos + 1.25 * flipperWidth;
+				bodyDef.position.x = _xPos + 5;
 				bodyDef.position.y = _yPos;
 				break;
 			case "left":
-				bodyDef.position.x = _xPos;
-				bodyDef.position.y = _yPos + 1.25 * flipperWidth;
+				bodyDef.position.x = _xPos - 1.5 * flipperWidth;
+				bodyDef.position.y = _yPos + 2 * flipperWidth;
 				break;
 			case "right":
 				bodyDef.position.x = _xPos;
-				bodyDef.position.y = _yPos - 1.25 * flipperWidth;
+				bodyDef.position.y = _yPos - 5;
 				break;													
 		}
 	
@@ -126,34 +127,11 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 }
 
 Flipper.prototype.updateTorque = function(input) {
+	var force = 100000;
 	if(input){
-		switch(this.orientation){
-			case "top": 
-				this.sawBody.ApplyTorque(this.torque);
-				break;
-
-			case "bottom": 
-				this.sawBody.ApplyTorque(this.torque);
-				break;
-
-			case "left": 
-				this.sawBody.ApplyTorque(this.torque);
-				break;
-
-			case "right": 
-				this.sawBody.ApplyTorque(this.torque);
-				break;			
-		}
+		this.sawBody.ApplyTorque( this.torque * force );
 	}
 	else {
-		switch(true){
-			case this.orientation == "top" || this.orientation == "bottom": 
-				this.sawBody.ApplyTorque(-this.torque / 10);
-				break;
-
-			case this.orientation == "left" || "right": 
-				this.sawBody.ApplyTorque(-this.torque / 10);
-				break;			
-		}
+		this.sawBody.ApplyTorque( - this.torque * force);
 	}
 };
