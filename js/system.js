@@ -36,7 +36,7 @@ System.prototype._privatedraw = function() {
 // ball class contains the fixtures and body initializes, attach itself to the collision events
 
 // spawning players
-//keeping track of score + lives
+// keeping track of score + lives
 
 // level class
 

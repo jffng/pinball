@@ -108,8 +108,8 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 			break;
 
 		case "bottom": 
-			this.revoluteJointDef.upperAngle =   1 / 4 * Math.PI;
-			this.revoluteJointDef.lowerAngle = - 1 / 4 * Math.PI;
+			this.revoluteJointDef.upperAngle =   1 / 6 * Math.PI;
+			this.revoluteJointDef.lowerAngle = - 1 / 6 * Math.PI;
 			break;	
 
 		case "left":
@@ -126,7 +126,7 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 	world.CreateJoint(this.revoluteJointDef);	
 }
 
-Flipper.prototype.updateTorque = function(input) {
+Flipper.prototype.updatePhysics = function(input) {
 	var force = 100000;
 	if(input){
 		this.sawBody.ApplyTorque( this.torque * force );
