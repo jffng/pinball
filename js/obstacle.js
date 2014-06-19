@@ -15,11 +15,11 @@ var Obstacle = function(xPos, yPos, bodyEntities) {
 }
 
 /**
- * updatePosition sets the new position of the obstacle if it moves
+ * updatePosition sets the new position of the obstacle if it moves in physical space
  * 
  */
 
-Obstacle.prototype.updatePosition = function (coordinateX, coordinateY) {
+Obstacle.prototype.updatePosition = function (input, coordinateX, coordinateY) {
 	
 }
 
@@ -35,7 +35,6 @@ var Can = function(xPos, yPos, bodyEntities) {
 	this.inheritsFrom = Obstacle;
 	this.inheritsFrom(xPos, yPos, undefined);
 
-	this.fixDef = new b2FixtureDef;
 	this.fixDef.shape = new b2CircleShape( 1 )
 	this.fixDef.restitution = 1;
 
@@ -62,6 +61,7 @@ var Wall = function (bodyEntities) {
 		this.bodyDef.position.x = entity.x;
 		this.bodyDef.position.y = entity.y;
 		this.bodyDef.userData = entity.id;
+		this.fixDef.friction = entity.friction;
 		// var body = world.CreateBody(this.bodyDef);
 
 		if (entity.polys) {

@@ -18,6 +18,7 @@ function init() {
 
 	// instantiate a new level of static components
 	level = new Level("test");
+	controller = new Controller();
 
 	// kick off the update + render loop
 	requestAnimFrame(update);
@@ -38,6 +39,9 @@ function update() {
 		,  10       //velocity iterations
 		,  10       //position iterations
 	);
+
+	controller.update();
+
 	world.DrawDebugData();
 	world.ClearForces();
 
@@ -54,5 +58,3 @@ window.requestAnimFrame = (function(){
 			window.setTimeout(callback, 1000 / 60);
 			};
 })();
-
-

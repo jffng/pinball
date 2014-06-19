@@ -41,5 +41,3 @@ System.prototype._privatedraw = function() {
 // level class
 
 // game controller spawns flipper + ball
-
-
