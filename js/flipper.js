@@ -74,7 +74,7 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 	sawFixtureDef.shape = new b2PolygonShape;
 	sawFixtureDef.shape.SetAsBox( flipperWidth, flipperHeight );
 	sawFixtureDef.density = 2.0;
-	sawFixtureDef.friction = 0.0;
+	sawFixtureDef.friction = 0.5;
 	this.sawBody.CreateFixture(sawFixtureDef);
 
 	var localCenter = this.sawBody.GetWorldCenter();
