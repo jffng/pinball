@@ -6,8 +6,8 @@
 var Pinball = function (_x, _y) {
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.shape = new b2CircleShape( .75 )
-	this.fixDef.restitution = 1;
-	this.fixDef.density = .5;
+	this.fixDef.restitution = .25;
+	this.fixDef.density = .75;
 
 	this.bodyDef = new b2BodyDef;
 	this.bodyDef.type = b2Body.b2_dynamicBody;	
@@ -25,11 +25,18 @@ var Pinball = function (_x, _y) {
 			console.log("Pinball hit the can");
 		}
 	}
+	
 	listener.EndContact = function(contact) {
 	}
+
 	listener.PostSolve = function(contact, impulse) {
-	    
+		var collidingBody = contact.GetFixtureB().GetBody().GetUserData();
+		
+		if(collidingBody == "Can") {
+			console.log(impulse);	
+		}
 	}
+
 	listener.PreSolve = function(contact, oldManifold) {
 
 	}

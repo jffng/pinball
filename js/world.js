@@ -1,8 +1,8 @@
 $(function  () {
-	init();
+	setup();
 })
 
-function init() {
+function setup() {
 	document.getElementById('c').width = CANVAS_WIDTH;
 	document.getElementById('c').height = CANVAS_HEIGHT;	
 
@@ -14,7 +14,7 @@ function init() {
 	});
 
 	// create the b2 world
-	world = new b2World( new b2Vec2(0, 5), true );
+	world = new b2World( new b2Vec2(0, 10), true );
 
 	// instantiate a new level of static components
 	level = new Level("test");
