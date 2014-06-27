@@ -7,21 +7,21 @@ var io = require('socket.io')(http);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
-  res.sendfile('index.html');
+	res.sendfile('index.html');
 });
 
 var pinball = io;
 var camera = io;
 
 pinball.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('hit can', function(){
-  	console.log('it hit the can');
-  });
+	console.log('a user connected');
+	socket.on('hit can', function(data){
+		console.log(data);
+	});
 });
 
 http.listen(3000, function(){
-  console.log('listening on *:3000');
+	console.log('listening on *:3000');
 });
 
 // identify what is connecting via socket.io: player, board, camera --> each of these will go to a different controller

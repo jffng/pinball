@@ -13,8 +13,8 @@ var Level = function(levelType) {
 
 		$(window).on('keypress', function(e){
 			console.log(e.keyCode);
-			if(e.keyCode === 100) rightFlipper.sawBody.ApplyTorque(100000); 
-			if(e.keyCode === 97) leftFlipper.sawBody.ApplyTorque(-100000);
+			if(e.keyCode === 68) rightFlipper.sawBody.ApplyTorque(100000); 
+			if(e.keyCode === 65) leftFlipper.sawBody.ApplyTorque(-100000);
 		});
 
 		$(window).on('keyup', function(e){

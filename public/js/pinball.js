@@ -15,6 +15,7 @@ var Pinball = function (_x, _y) {
 	this.bodyDef.position.x = _x;
 	this.bodyDef.position.y = _y;
 	this.bodyDef.userData = "pinball";
+	self = this;
 
 	this.pinball = world.CreateBody( this.bodyDef ).CreateFixture( this.fixDef );
 
@@ -30,13 +31,12 @@ var Pinball = function (_x, _y) {
 	listener.EndContact = function(contact) {
 	}
 
-	self = this;
 	listener.PostSolve = function(contact, impulse) {
 		var collidingBody = contact.GetFixtureB().GetBody().GetUserData();
 		
 		if(collidingBody == "Can") {
 			console.log(impulse);	
-			self.socket.emit('hit can');
+			self.socket.emit('hit can', impulse);
 		}
 	}
 
