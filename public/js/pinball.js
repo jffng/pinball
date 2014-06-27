@@ -4,9 +4,10 @@
  */
 
 var Pinball = function (_x, _y) {
+	this.socket = io();
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.shape = new b2CircleShape( .75 )
-	this.fixDef.restitution = .25;
+	this.fixDef.restitution = .5;
 	this.fixDef.density = .75;
 
 	this.bodyDef = new b2BodyDef;
@@ -29,11 +30,13 @@ var Pinball = function (_x, _y) {
 	listener.EndContact = function(contact) {
 	}
 
+	self = this;
 	listener.PostSolve = function(contact, impulse) {
 		var collidingBody = contact.GetFixtureB().GetBody().GetUserData();
 		
 		if(collidingBody == "Can") {
 			console.log(impulse);	
+			self.socket.emit('hit can');
 		}
 	}
 

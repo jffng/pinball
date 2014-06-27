@@ -14,7 +14,7 @@ function setup() {
 	});
 
 	// create the b2 world
-	world = new b2World( new b2Vec2(0, 10), true );
+	world = new b2World( new b2Vec2(-1, 10), true );
 
 	// instantiate a new level of static components
 	level = new Level("test");
