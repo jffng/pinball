@@ -10,14 +10,41 @@ app.get('/', function(req, res){
 	res.sendfile('index.html');
 });
 
-var pinball = io;
+var player = io;
 var camera = io;
+var board = io;
 
-pinball.on('connection', function(socket){
+
+player.on('connection', function(socket){
+
 	console.log('a user connected');
-	socket.on('hit can', function(data){
+
+	// player receives a ball from the board
+	socket.on('ball in', function(data){
 		console.log(data);
 	});
+
+	// player sends a message about the time of contact 
+	socket.on('contact', function (data) {
+		console.log(data);
+	});
+
+	// player sends a ball back to the board
+	socket.on('ball out', function (data) {
+		console.log(data);
+	});
+
+});
+
+camera.on('connection', function (socket) {
+	console.log('a user connected');
+
+	// camera sends array of obstacles to the board
+	socket.emit('obstacles', )
+});
+
+board.on('connection', function (argument) {
+	// 
 });
 
 http.listen(3000, function(){
