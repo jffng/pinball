@@ -3,6 +3,8 @@ var Level = function(levelType) {
 		this.socket = io();
 		this.walls = new Wall(boundaries);
 
+		
+
 		rightFlipper = new Flipper(CANVAS_WIDTH / SCALE / 2, 0.9 * CANVAS_HEIGHT / SCALE, "right", "bottom");
 		leftFlipper = new Flipper(CANVAS_WIDTH / SCALE / 2, 0.9 * CANVAS_HEIGHT / SCALE, "left", "bottom");
 

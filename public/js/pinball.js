@@ -38,6 +38,10 @@ var Pinball = function (_x, _y) {
 			console.log(impulse);	
 			self.socket.emit('hit can', impulse);
 		}
+		if(collidingBody == "Flipper") {
+			console.log(impulse);	
+			self.socket.emit('ball out', impulse);
+		}		
 	}
 
 	listener.PreSolve = function(contact, oldManifold) {
