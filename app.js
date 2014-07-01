@@ -1,23 +1,37 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var Box2D = require('box2dweb-commonjs');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
-	res.sendfile('index.html');
+	// res.sendfile('index.html');
 });
+
+// create the b2 world
+var worldAABB = new Box2D.b2AABB();
+worldAABB.lowerBound.Set(-100.0, -100.0);
+worldAABB.upperBound.Set(100.0, 100.0);
+
+world = new Box2D.b2World( worldAABB, new Box2D.b2Vec2(-1, 10), true );
+
+var	Level = require('phys/level'),
+	Controller = require('phys/controller');
+
+// instantiate a new level of static components
+level = new Level("test");
+controller = new Controller();
 
 var player = io;
 var camera = io;
 var board = io;
 
-
 player.on('connection', function(socket){
 
-	console.log('a user connected');
+	console.log('a player connected');
 
 	// player receives a ball from the board
 	socket.on('ball in', function(data){
@@ -29,22 +43,25 @@ player.on('connection', function(socket){
 		console.log(data);
 	});
 
-	// player sends a ball back to the board
-	socket.on('ball out', function (data) {
-		console.log(data);
-	});
-
 });
 
 camera.on('connection', function (socket) {
-	console.log('a user connected');
+	console.log('a camera connected');
 
 	// camera sends array of obstacles to the board
-	socket.emit('obstacles', )
+	socket.emit('obstacles', function (data) {
+		
+	});
 });
 
 board.on('connection', function (argument) {
-	// 
+	console.log('a board connected');
+
+	socket.on('ball out', function (argument) {
+		socket.emit('')
+	});
+
+	socket.on('')
 });
 
 http.listen(3000, function(){

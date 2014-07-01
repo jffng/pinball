@@ -22,4 +22,12 @@ build/Release
 # Dependency directory
 # Deployed apps should consider commenting this line out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
-node_modules
+node_modules/box2d
+
+node_modules/box2dweb-commonjs
+
+node_modules/express
+
+node_modules/socket.io
+
+node_modules/node-uuid
