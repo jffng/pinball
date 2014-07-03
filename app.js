@@ -8,7 +8,7 @@ var io = require('socket.io')(http);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res){
-	// res.sendfile('index.html');
+	res.sendfile('index.html');
 });
 
 // create the b2 world
@@ -25,44 +25,60 @@ var	Level = require('phys/level'),
 level = new Level("test");
 controller = new Controller();
 
-var player = io;
-var camera = io;
-var board = io;
+// Run Simulation!
+	// for (var i=0; i < 60; i++) {
+	// 	world.Step(
+	// 		1 / 60   //frame-rate
+	// 		,  10       //velocity iterations
+	// 		,  10       //position iterations
+	// 	);
+	// }
 
-player.on('connection', function(socket){
-
-	console.log('a player connected');
-
-	// player receives a ball from the board
-	socket.on('ball in', function(data){
-		console.log(data);
-	});
-
-	// player sends a message about the time of contact 
-	socket.on('contact', function (data) {
-		console.log(data);
-	});
-
+io.on('connection', function (socket) {
+	
+		console.log('a user connected');
+		socket.emit('world', world);
 });
 
-camera.on('connection', function (socket) {
-	console.log('a camera connected');
 
-	// camera sends array of obstacles to the board
-	socket.emit('obstacles', function (data) {
+// var player = io;
+// var camera = io;
+// var board = io;
+
+// player.on('connection', function(socket){
+
+// 	console.log('a player connected');
+
+// 	// player receives a ball from the board
+// 	socket.on('ball in', function(data){
+// 		console.log(data);
+// 	});
+
+// 	// player sends a message about the time of contact 
+// 	socket.on('contact', function (data) {
+// 		console.log(data);
+// 	});
+
+// });
+
+// camera.on('connection', function (socket) {
+// 	console.log('a camera connected');
+
+// 	// camera sends array of obstacles to the board
+// 	socket.emit('obstacles', function (data) {
 		
-	});
-});
+// 	});
+// });
 
-board.on('connection', function (argument) {
-	console.log('a board connected');
+// board.on('connection', function (argument) {
+// 	console.log('a board connected');
 
-	socket.on('ball out', function (argument) {
-		socket.emit('')
-	});
+// 	socket.on('ball out', function (argument) {
+// 		socket.emit('')
+// 	});
 
-	socket.on('')
-});
+// 	socket.on('')
+// });
 
 http.listen(3000, function(){
 	console.log('listening on *:3000');
