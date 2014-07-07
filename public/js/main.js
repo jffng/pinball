@@ -15,14 +15,17 @@ $(document).ready(function () {
 	document.body.appendChild(renderer.view);
 
 	var socket = io.connect();
+		socket.on('world', function (data) {
+			world = data;	
+		});
+
+	document.body.onmousedown = function(e) {
+		console.log(world);
+	}
 
 	// requestAnimFrame(animate);
 
 	function draw() {
-		// socket.on('world', function (data) {
-		// 	world = data;
-		// });
-
 		for(var bb = world.GetBodyList(); bb; bb = bb.GetNext()) {
 			// get the root position of our body
 			var bodyPos = bb.GetPosition();

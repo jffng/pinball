@@ -11,35 +11,91 @@ app.get('/', function(req, res){
 	res.sendfile('index.html');
 });
 
-// create the b2 world
-var worldAABB = new Box2D.b2AABB();
-worldAABB.lowerBound.Set(-100.0, -100.0);
-worldAABB.upperBound.Set(100.0, 100.0);
+// Box2D global variables
+var positions;
+var fps = 60;
 
-world = new Box2D.b2World( worldAABB, new Box2D.b2Vec2(-1, 10), true );
+function init () {
+	// create the b2 world
+	var worldAABB = new Box2D.b2AABB();
+	worldAABB.lowerBound.Set(-100.0, -100.0);
+	worldAABB.upperBound.Set(100.0, 100.0);
 
-var	Level = require('phys/level'),
-	Controller = require('phys/controller');
+	world = new Box2D.b2World( worldAABB, new Box2D.b2Vec2(-1, 10), true );
 
-// instantiate a new level of static components
-level = new Level("test");
-controller = new Controller();
+	var	Level = require('phys/level'),
+		Controller = require('phys/controller');
+
+	// instantiate a new level of static components
+	level = new Level("test");
+	controller = new Controller();
+
+	interval = setInterval(function () { 
+		update();
+	},1000/fps);
+
+	update();
+};
 
 // Run Simulation!
-	// for (var i=0; i < 60; i++) {
-	// 	world.Step(
-	// 		1 / 60   //frame-rate
-	// 		,  10       //velocity iterations
-	// 		,  10       //position iterations
-	// 	);
-	// }
+function update () {
+	world.Step(
+		1 / 60   //frame-rate
+		,  10       //velocity iterations
+		,  10       //position iterations
+	);
+
+	io.emit( 'world', getPositions() );
+
+	world.ClearForces();
+};
+
+function getPositions () {
+	var bodies = [];
+
+	for(var bb = world.GetBodyList(); bb; bb = bb.GetNext()) {
+		// get the root position of our body
+		var bodyPos = bb.GetPosition();
+
+		// if we haven't created a sprite for this body yet
+		if(bb.m_userData == null) {
+
+			// loop through all our fixtures;
+			for(var bf = bb.GetFixtureList(); bf; bf = bf.GetNext()) {
+				var shape = bf.GetShape();
+				if(shape.GetType() == 1) {
+					var verts = shape.GetVertices();
+					bodies.push(verts);
+				} else if(shape.GetType() == 0) {
+					var circ = {
+						"pos": shape.GetLocalPosition(),
+						"radius": shape.GetRadius()
+					};
+					bodies.push(circ);
+				}
+			}
+		} 
+		//  else if(bb.m_userData !== "image") {
+		// 	var s = bb.m_userData;
+		// 	s.position.x = bodyPos.x * drawScale;
+		// 	s.position.y = bodyPos.y * -drawScale;
+		// 	s.rotation = -bb.GetAngle();			
+		// }
+	}
+	return bodies;
+};
 
 io.on('connection', function (socket) {
-	
-		console.log('a user connected');
-		socket.emit('world', world);
+	console.log('a user connected');
+	// socket.on('request', function () {
+	// });
 });
 
+http.listen(3000, function(){
+	console.log('listening on *:3000');
+});
+
+init();
 
 // var player = io;
 // var camera = io;
@@ -79,10 +135,6 @@ io.on('connection', function (socket) {
 
 // 	socket.on('')
 // });
-
-http.listen(3000, function(){
-	console.log('listening on *:3000');
-});
 
 // identify what is connecting via socket.io: player, board, camera --> each of these will go to a different controller
 // 1. if player, only sending through flip or not flip (ons and offs), latency. player sends back, ball + velocity + vector direction of entry
