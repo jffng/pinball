@@ -19,7 +19,7 @@ var Box2D = {};
 
 (function (a2j, undefined) {
 
-   if(!Object.defineProperty
+   if(!(Object.prototype.defineProperty instanceof Function)
       && Object.prototype.__defineGetter__ instanceof Function
       && Object.prototype.__defineSetter__ instanceof Function)
    {
@@ -347,7 +347,6 @@ if (typeof(Box2D.Dynamics.Joints) === "undefined") Box2D.Dynamics.Joints = {};
 
    function b2ContactListener() {
       b2ContactListener.b2ContactListener.apply(this, arguments);
-      // if (this.constructor === b2ContactListener) this.b2ContactListener.apply(this, arguments);
    };
    Box2D.Dynamics.b2ContactListener = b2ContactListener;
 
@@ -4130,7 +4129,6 @@ Box2D.postDefs = [];
       if (pos === undefined) pos = null;
       if (r === undefined) r = null;
       if (pos) {
-         console.log('inside b2transform at line 4133: ' + pos.x + pos.y );
          this.position.SetV(pos);
          this.R.SetM(r);
       }
@@ -10866,20 +10864,3 @@ Box2D.postDefs = [];
 var i;
 for (i = 0; i < Box2D.postDefs.length; ++i) Box2D.postDefs[i]();
 delete Box2D.postDefs;
-// Exports
-exports.Box2D = Box2D;
-exports.b2AABB = Box2D.Collision.b2AABB;
-exports.b2Body = Box2D.Dynamics.b2Body;
-exports.b2BodyDef = Box2D.Dynamics.b2BodyDef;
-exports.b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
-exports.b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
-exports.b2Fixture = Box2D.Dynamics.b2Fixture;
-exports.b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
-exports.b2MassData = Box2D.Collision.Shapes.b2MassData;
-exports.b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
-exports.b2PrismaticJointDef = Box2D.Dynamics.Joints.b2PrismaticJointDef;
-exports.b2RevoluteJointDef = Box2D.Dynamics.Joints.b2RevoluteJointDef;
-exports.b2Transform=Box2D.Common.Math.b2Transform;
-exports.b2Vec2 = Box2D.Common.Math.b2Vec2;
-exports.b2World = Box2D.Dynamics.b2World;
-exports.b2ContactListener = Box2D.Dynamics.b2ContactListener;

@@ -4,13 +4,11 @@
  * @param { JSON } [bodyEntities] [description]
  */
 
-var Box2D = require('box2dweb-commonjs');
+var Obstacle = function(xPos, yPos, bodyEntities) {
+	this.bodyDef = new b2BodyDef;
+	this.bodyDef.type = b2Body.b2_staticBody;
 
-var Obstacle = function(xPos, yPos, bodyEntities, world) {
-	this.bodyDef = new Box2D.b2BodyDef;
-	this.bodyDef.type = Box2D.b2Body.b2_staticBody;
-
-	this.fixDef = new Box2D.b2FixtureDef;	
+	this.fixDef = new b2FixtureDef;	
 
 	this.bodyDef.position.x = xPos;
 	this.bodyDef.position.y = yPos;
@@ -39,7 +37,7 @@ var Can = function(xPos, yPos, bodyEntities) {
 
 	this.bodyDef.userData = "Can";
 
-	this.fixDef.shape = new Box2D.b2CircleShape( 1 );
+	this.fixDef.shape = new b2CircleShape( 1 );
 	this.fixDef.restitution = 1;
 
 	world.CreateBody( this.bodyDef ).CreateFixture( this.fixDef );	
@@ -55,16 +53,16 @@ var Glass = function() {
 	this.inheritsFrom();
 }
 
-var Wall = function (bodyEntities, world) {
+var Wall = function (bodyEntities) {
 	this.inheritsFrom = Obstacle;
-	this.inheritsFrom(undefined, undefined, bodyEntities, world);
+	this.inheritsFrom(undefined, undefined, bodyEntities);
 
 	for(var id in bodyEntities) {
 		var entity = bodyEntities[id];
 
 		this.bodyDef.position.x = entity.x;
 		this.bodyDef.position.y = entity.y;
-		this.bodyDef.userData = entity.id;
+		// this.bodyDef.userData = entity.id;
 		this.fixDef.friction = entity.friction;
 		// var body = world.CreateBody(this.bodyDef);
 
@@ -77,21 +75,15 @@ var Wall = function (bodyEntities, world) {
 					vec.Set(points[i].x, points[i].y);
 					vecs[i] = vec;
 				}
-				this.fixDef.shape = new Box2D.b2PolygonShape;
+				this.fixDef.shape = new b2PolygonShape;
 				this.fixDef.shape.SetAsArray(vecs, vecs.length);
 				// body.CreateFixture(this.fixDef);
 			}
 		} else {
-			this.fixDef.shape = new Box2D.b2PolygonShape;
+			this.fixDef.shape = new b2PolygonShape;
 			this.fixDef.shape.SetAsBox(entity.halfWidth, entity.halfHeight);
 			// body.CreateFixture(this.fixDef);
 		}
 		world.CreateBody( this.bodyDef ).CreateFixture( this.fixDef );    
 	}
 }
-
-module.exports.Obstacle = Obstacle;
-module.exports.Wall = Wall;
-module.exports.Glass = Glass;
-module.exports.Bottle = Bottle;
-module.exports.Can = Can;
