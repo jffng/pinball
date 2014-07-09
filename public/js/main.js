@@ -1,6 +1,7 @@
+
 var world;
-var drawScale = 15;
-var container, renderer, stage;
+var drawScale = 32;
+var container, renderer, stats, stage;
 
 $(function  () {
 	setup();
@@ -16,6 +17,11 @@ function setup() {
 	container.position.y = window.innerHeight / 2;
 	stage.addChild(container);
 
+	stats = new Stats();
+			stats.domElement.style.position = 'absolute';
+			stats.domElement.style.top = '3px';
+			document.body.appendChild( stats.domElement );
+
 	// create a renderer instance
 	renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, null, true, true);
 
@@ -23,7 +29,7 @@ function setup() {
 	document.body.appendChild(renderer.view);
 
 	// create the b2 world
-	world = new b2World( new b2Vec2(0, -5), true );
+	world = new b2World( new b2Vec2(0, -20), true );
 
 	// instantiate a new level of static components
 	level = new Level("test");
@@ -57,7 +63,7 @@ function draw () {
 				var shape = bf.GetShape();
 				if(shape.GetType() == 1) {
 					var verts = shape.GetVertices();
-					graphics.beginFill(0xdd6633, 1);
+					graphics.beginFill(0x0000ff, 1);
 					graphics.lineStyle(2, 0x000000, .5);
 					for(var v = 0; v < verts.length; v++) {
 						graphics.lineTo(verts[v].x * drawScale, verts[v].y * -drawScale);
@@ -65,7 +71,7 @@ function draw () {
 					graphics.lineTo(verts[0].x * drawScale, verts[0].y * -drawScale + .001);
 					graphics.endFill();						
 				} else if(shape.GetType() == 0) {
-					graphics.beginFill(0xdd6633, 1);
+					graphics.beginFill(0xff0000, 1);
 					graphics.lineStyle(2, 0x000000, .5);
 					var pos = shape.GetLocalPosition();
 					graphics.drawCircle(pos.x, pos.y, shape.GetRadius() * drawScale);
@@ -96,12 +102,14 @@ function update() {
 
 	controller.update();
 
-	// world.DrawDebugData();
 	world.ClearForces();
 
 	draw();
 
 	renderer.render(stage);	
+
+	stats.update();
+
 }
 
 window.requestAnimFrame = (function(){

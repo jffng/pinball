@@ -5,15 +5,16 @@
 
 var Pinball = function (_x, _y) {
 	this.socket = io();
-	this.fixDef = new b2FixtureDef;
-	this.fixDef.shape = new b2CircleShape( .75 )
-	this.fixDef.restitution = .5;
-	this.fixDef.density = .75;
-
 	this.bodyDef = new b2BodyDef;
 	this.bodyDef.type = b2Body.b2_dynamicBody;	
 	this.bodyDef.position.x = _x;
 	this.bodyDef.position.y = _y;
+
+	this.fixDef = new b2FixtureDef;
+	this.fixDef.shape = new b2CircleShape( .75 )
+	this.fixDef.restitution = 1;
+	this.fixDef.density = .75;
+
 	// this.bodyDef.userData = "pinball";
 	self = this;
 
@@ -58,7 +59,7 @@ Pinball.prototype.draw = function() {
 Pinball.prototype.isDead = function() {
 	this.pos = this.pinball.m_body.GetPosition();
 
-	if(this.pos.y > CANVAS_HEIGHT / SCALE) {
+	if(this.pos.y < -16) {
 		return true;
 	}
 	else return false;
