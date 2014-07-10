@@ -11,6 +11,10 @@ app.get('/', function(req, res){
 	res.sendfile('index.html');
 });
 
+app.get('/controls', function (req, res) {
+	res.sendfile('phone.html')
+})
+
 io.on('connection', function (socket) {
 	console.log('a user connected');
 	// socket.on('request', function () {
@@ -22,7 +26,7 @@ http.listen(3000, function(){
 });
 
 
-// var player = io;
+var player = io;
 // var camera = io;
 // var board = io;
 
@@ -34,7 +38,7 @@ http.listen(3000, function(){
 // 	socket.on('ball in', function(data){
 // 		console.log(data);
 // 	});
-
+// }
 // 	// player sends a message about the time of contact 
 // 	socket.on('contact', function (data) {
 // 		console.log(data);

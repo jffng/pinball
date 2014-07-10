@@ -35,7 +35,7 @@ var Can = function(xPos, yPos, bodyEntities) {
 	this.inheritsFrom = Obstacle;
 	this.inheritsFrom(xPos, yPos, undefined);
 
-	this.bodyDef.userData = "Can";
+	// this.bodyDef.userData = "Can";
 
 	this.fixDef.shape = new b2CircleShape( 1 );
 	this.fixDef.restitution = 1;

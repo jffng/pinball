@@ -9,7 +9,7 @@
  */
 
 var Flipper = function(_xPos, _yPos, type, orientation) {
-	var flipperWidth = 2.5,
+	var flipperWidth = 3.5,
 		flipperHeight = 0.5;
 
 	this.orientation = orientation;

@@ -12,7 +12,7 @@ var Pinball = function (_x, _y) {
 
 	this.fixDef = new b2FixtureDef;
 	this.fixDef.shape = new b2CircleShape( .75 )
-	this.fixDef.restitution = 1;
+	this.fixDef.restitution = .4;
 	this.fixDef.density = .75;
 
 	// this.bodyDef.userData = "pinball";
@@ -59,7 +59,7 @@ Pinball.prototype.draw = function() {
 Pinball.prototype.isDead = function() {
 	this.pos = this.pinball.m_body.GetPosition();
 
-	if(this.pos.y < -16) {
+	if(this.pos.y < -18) {
 		return true;
 	}
 	else return false;

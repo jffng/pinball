@@ -1,6 +1,4 @@
-//Restarted script log at Wed Jul  9 15:07:19 2014
-getBody(20).deselect();
-getBody(24).select();
-getBody(24).deselect();
-getBody(19).select();
-getBody(19).deselect();
+//Restarted script log at Thu Jul 10 14:10:21 2014
+getFixture(2).select();
+getFixture(2).deselect();
+getFixture(2).delete();
