@@ -5,15 +5,15 @@ function connect () {
 		'forceNew': true
 	});
 
-	socket.on('pong', function () {
-		console.log('- pong');
-	}).on('time', function (data) {
-		console.log('- broadcast: ' + data);
-	}).on('authenticated', function () {
-		console.log('- authenticated');
-	}).on('disconnect', function () {
-		console.log('- disconnected');
-	});
+	// socket.on('pong', function () {
+	// 	console.log('- pong');
+	// }).on('time', function (data) {
+	// 	console.log('- broadcast: ' + data);
+	// }).on('authenticated', function () {
+	// 	console.log('- authenticated');
+	// }).on('disconnect', function () {
+	// 	console.log('- disconnected');
+	// });
 }
 
 $('#login').submit(function (e) {

@@ -1,16 +1,19 @@
 var Controller = function() {
+	this.socket = io();
 
+	this.lives = 1;
 	this.pinballs = [];
 	this.players = [];
 
 	this.pinballs.push( new Pinball(0, 0) );
 
-
 	var self = this;
-	this.socket.on('new player', function (data) {
+	this.socket.on('add player', function (data) {
 		console.log('new player added');
-		console.log(data);
-});
+		this.players.push( new Player(data.id) );
+	}).on('disconnect', function (data) {
+		// body...
+	});
 }
 
 Controller.prototype.update = function() {
@@ -18,8 +21,8 @@ Controller.prototype.update = function() {
 			for(var i = 0; i < this.pinballs.length; i++){
 				if(this.pinballs[i].isDead()){
 					this.pinballs.splice(i, 1);
-					this.pinballs.push( new Pinball(-12, 0) );
-					--this.lives;
+					this.pinballs.push( new Pinball(.5, 0) );
+					// --this.lives;
 				}
 			}		
 		}

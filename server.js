@@ -4,10 +4,9 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var socketio_jwt = require('socketio-jwt');
 var path = require('path');
+var bodyParser = require('body-parser')
 var jwt = require('jsonwebtoken');
 var jwt_secret = 'cats';
-var bodyParser = require('body-parser')
-
 
 var CLIENTS = [];
 
@@ -33,18 +32,30 @@ io.use(socketio_jwt.authorize({
 }));
 
 io.sockets.on('connection', function (socket) {
-	console.log(socket.decoded_token.code, 'connected');
+	var id = socket.decoded_token.code;
+	console.log(id, 'connected');
+
+	if(id === 'pinball table client') return;
 	
-	// socket.on('ping', function (m) {
-	// 	socket.emit('pong', m);
-	// });
+	socket.emit('add player', { id: id });
+	
+	socket.on('ping', function (m) {
+		socket.emit('pong', m);
+	});
 });
 
 // setInterval(function () {
 //   io.sockets.emit('time', Date());
 // }, 5000);
 
-app.get('/', function (req, res) {
+app.get('/host', function (req, res) {
+	var login = {
+		code: 'pinball table client' 
+	};
+
+	var token = jwt.sign(login, jwt_secret, { expiresInMinutes: 60*5 });
+
+	// res.json({token: token});
 	res.sendfile('index.html');
 });
 
