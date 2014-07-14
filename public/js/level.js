@@ -3,9 +3,6 @@ var Level = function (levelType) {
 		loadRubeScene('testlevel.json')
 		this.socket = io();
 
-		rightFlipper = new Flipper( 9, -15.5, "right", "bottom");
-		leftFlipper = new Flipper( - 11, -15.5, "left", "bottom");
-
 		this.obstacles = [];
 
 		var self = this;
@@ -16,18 +13,6 @@ var Level = function (levelType) {
 			console.log(xCoordinate);
 			console.log(yCoordinate);
 			self.obstacles.push(new Can( xCoordinate, yCoordinate, undefined ));
-		});
-
-		$(window).on('keypress', function(e){
-			console.log(e.keyCode);
-				rightFlipper.sawBody.ApplyTorque(200000); 
-			if(e.keyCode === 65 || e.keyCode === 97) leftFlipper.sawBody.ApplyTorque(-200000);
-		});
-
-		$(window).on('keyup', function(e){
-			console.log(e.keyCode);
-			if(e.keyCode === 68) rightFlipper.sawBody.ApplyTorque(-200000);
-			if(e.keyCode === 65) leftFlipper.sawBody.ApplyTorque(200000);
 		});
 
 		// this.socket.on('obstacle', function (obstacleArray) {

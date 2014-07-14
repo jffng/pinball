@@ -64,34 +64,9 @@
         "angle" : 0,
         "angularVelocity" : 0,
         "awake" : true,
-        "fixture" : 
-        [
-          
-          {
-            "density" : 1,
-            "friction" : 0.2,
-            "id" : 2,
-            "name" : "fixture6",
-            "restitution" : 1,
-            "shapes" : 
-            [
-              
-              {
-                "radius" : 0.5,
-                "type" : "circle"
-              }
-            ],
-            "vertices" : 
-            {
-              "x" : [ 0.0 ],
-              "y" : [ 0.0 ]
-            }
-          }
-        ],
         "id" : 1,
         "linearVelocity" : 0,
-        "massData-I" : 0.09817477315664291,
-        "massData-mass" : 0.7853981852531433,
+        "massData-mass" : 1,
         "name" : "body4",
         "position" : 
         {

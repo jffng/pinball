@@ -54,7 +54,7 @@ function draw () {
 		var bodyPos = bb.GetPosition();
 
 		// if we haven't created a sprite for this body yet
-		if(bb.m_userData == null) {
+		if(bb.m_graphicsData == undefined) {
 
 			var graphics = new PIXI.Graphics();
 
@@ -81,9 +81,9 @@ function draw () {
 			container.addChild(graphics);
 			graphics.position.x = bodyPos.x * drawScale;
 			graphics.position.y = bodyPos.y * -drawScale;
-			bb.m_userData = graphics;
-		} else if(bb.m_userData) {
-				var s = bb.m_userData;
+			bb.m_graphicsData = graphics;
+		} else if(bb.m_graphicsData) {
+				var s = bb.m_graphicsData;
 				s.position.x = bodyPos.x * drawScale;
 				s.position.y = bodyPos.y * -drawScale;
 				s.rotation = -bb.GetAngle();			

@@ -1,32 +1,70 @@
 var express = require('express');
 var app = express();
-var path = require('path');
-var Box2D = require('box2dweb-commonjs');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var socketio_jwt = require('socketio-jwt');
+var path = require('path');
+var jwt = require('jsonwebtoken');
+var jwt_secret = 'cats';
+var bodyParser = require('body-parser')
+
+
+var CLIENTS = [];
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 
-app.get('/', function(req, res){
+app.post('/login', function (req, res) {
+	var login = {
+		code: req.body.code 
+	};
+
+	if(login.code === 'aaa'){
+		// We are sending the login inside the token
+		var token = jwt.sign(login, jwt_secret, { expiresInMinutes: 60*5 });
+
+		res.json({token: token});
+	}
+});
+
+io.use(socketio_jwt.authorize({
+	secret: jwt_secret,
+	handshake: true
+}));
+
+io.sockets.on('connection', function (socket) {
+	console.log(socket.decoded_token.code, 'connected');
+	
+	// socket.on('ping', function (m) {
+	// 	socket.emit('pong', m);
+	// });
+});
+
+// setInterval(function () {
+//   io.sockets.emit('time', Date());
+// }, 5000);
+
+app.get('/', function (req, res) {
 	res.sendfile('index.html');
 });
 
-app.get('/controls', function (req, res) {
-	res.sendfile('phone.html')
+app.get('/client', function (req, res) {
+	res.sendfile('client.html')
 })
 
-io.on('connection', function (socket) {
-	console.log('a user connected');
-	// socket.on('request', function () {
-	// });
-});
+// io.on('connection', function (socket) {
+// 	console.log('a user connected');
+// 	CLIENTS.push(socket);
+// 	console.log(CLIENTS);
+// 	// socket.emit('new player', CLIENTS);
+// });
 
 http.listen(3000, function(){
 	console.log('listening on *:3000');
 });
 
 
-var player = io;
+// var player = io;
 // var camera = io;
 // var board = io;
 

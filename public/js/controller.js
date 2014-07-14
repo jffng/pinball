@@ -1,8 +1,16 @@
 var Controller = function() {
-	this.lives = 5;
-	this.pinballs = [];
 
-	this.pinballs.push( new Pinball(10, 0) );
+	this.pinballs = [];
+	this.players = [];
+
+	this.pinballs.push( new Pinball(0, 0) );
+
+
+	var self = this;
+	this.socket.on('new player', function (data) {
+		console.log('new player added');
+		console.log(data);
+});
 }
 
 Controller.prototype.update = function() {
