@@ -1,10 +1,26 @@
 
 var world;
+var socket;
 var drawScale = 32;
 var container, renderer, stats, stage;
 
 $(function  () {
-	setup();
+	$('#login').submit(function (e) {
+		e.preventDefault();
+		var code = $('#code').val();
+		$.ajax({
+			type: 'POST',
+	 		url: '/login',
+			data: JSON.stringify({
+				name: 'json data',
+				code: code
+			}),
+			 contentType: "application/json; charset=utf-8"
+		}).done(function (result) {
+			token = result.token;
+			connect();
+		});
+	});
 });
 
 function setup() {
@@ -38,20 +54,25 @@ function setup() {
 	// kick off the update + render loop
 	requestAnimFrame(update);
 
-	// Box2D debug rendering
-	// var debugDraw = new b2DebugDraw();
-	// debugDraw.SetSprite(document.getElementById("c").getContext("2d"));
-	// debugDraw.SetDrawScale(SCALE);
-	// debugDraw.SetFillAlpha(0.3);
-	// debugDraw.SetLineThickness(1.0);
-	// debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-	// world.SetDebugDraw(debugDraw);
+}
+
+function connect () {
+	socket = io(token ? ('?token=' + token) : '', {
+		'forceNew': true
+	});
+
+	setup();
+
+	$('#login').hide( 'slow' );
 }
 
 function draw () {
 	for(var bb = world.GetBodyList(); bb; bb = bb.GetNext()) {
 		// get the root position of our body
 		var bodyPos = bb.GetPosition();
+
+		socket.emit( 'positions' , { id: bb.m_userData,
+									pos: bodyPos } );
 
 		// if we haven't created a sprite for this body yet
 		if(bb.m_graphicsData == undefined) {
@@ -100,9 +121,10 @@ function update() {
 		,  10       //position iterations
 	);
 
-	controller.update();
 
 	world.ClearForces();
+
+	controller.update();
 
 	draw();
 

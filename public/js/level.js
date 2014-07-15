@@ -1,7 +1,6 @@
 var Level = function (levelType) {
 	if(levelType == "test")	{
 		loadRubeScene('testlevel.json')
-		this.socket = io();
 
 		this.obstacles = [];
 

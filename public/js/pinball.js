@@ -4,7 +4,7 @@
  */
 
 var Pinball = function (_x, _y) {
-	this.socket = io();
+	// this.socket = io();
 	this.bodyDef = new b2BodyDef;
 	this.bodyDef.type = b2Body.b2_dynamicBody;	
 	this.bodyDef.position.x = _x;
@@ -37,11 +37,11 @@ var Pinball = function (_x, _y) {
 		
 		if(collidingBody == "Can") {
 			console.log(impulse);	
-			self.socket.emit('hit can', impulse);
+			// self.socket.emit('hit can', impulse);
 		}
 		if(collidingBody == "Flipper") {
 			console.log(impulse);	
-			self.socket.emit('ball out', impulse);
+			// self.socket.emit('ball out', impulse);
 		}		
 	}
 

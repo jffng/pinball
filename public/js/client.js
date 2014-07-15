@@ -1,19 +1,17 @@
 var token, socket;
 
 function connect () {
+	$('#login').hide( 'slow' );
+	
 	socket = io(token ? ('?token=' + token) : '', {
 		'forceNew': true
 	});
 
-	// socket.on('pong', function () {
-	// 	console.log('- pong');
-	// }).on('time', function (data) {
-	// 	console.log('- broadcast: ' + data);
-	// }).on('authenticated', function () {
-	// 	console.log('- authenticated');
-	// }).on('disconnect', function () {
-	// 	console.log('- disconnected');
-	// });
+	socket.on('positions', function (position) {
+		console.log(position);
+	}).on('disconnect', function () {
+		console.log('- disconnected');
+	});
 }
 
 $('#login').submit(function (e) {
@@ -32,12 +30,4 @@ $('#login').submit(function (e) {
 		token = result.token;
 		connect();
 	});
-});
-
-
-connect(); //connect now, it will drop
-
-$('#ping').on('click', function () {
-	console.log('- ping');
-	socket.emit('ping');
 });

@@ -9,16 +9,50 @@ var jwt = require('jsonwebtoken');
 var jwt_secret = 'cats';
 
 var CLIENTS = [];
+var numPlayers = 0;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
-app.post('/login', function (req, res) {
+io.use(socketio_jwt.authorize({
+	secret: jwt_secret,
+	handshake: true
+}));
+
+io.on('connection', function (socket) {
+	console.log('user ' + numPlayers + ' connected');
+	++numPlayers;
+
+	// var id = socket.decoded_token.code;
+	// console.log(id, 'connected');
+
+	id = 0;
+
+	if(id) {
+		// socket.on('positions', function(p) {
+		// 	socket.broadcast('positions', p);
+		// })	
+	} else {
+		socket.on('positions', function (p) {
+			io.emit('positions', p );
+		});
+	}
+});
+
+app.get('/client', function (req, res) {
+	res.sendfile('client.html')
+})
+
+app.get('/host', function (req, res) {
+	res.sendfile('index.html');
+});
+
+app.post('/login', function (req, res, next) {
 	var login = {
 		code: req.body.code 
 	};
 
-	if(login.code === 'aaa'){
+	if(login.code === 'aaa' || login.code === 'host'){
 		// We are sending the login inside the token
 		var token = jwt.sign(login, jwt_secret, { expiresInMinutes: 60*5 });
 
@@ -26,54 +60,13 @@ app.post('/login', function (req, res) {
 	}
 });
 
-io.use(socketio_jwt.authorize({
-	secret: jwt_secret,
-	handshake: true
-}));
-
-io.sockets.on('connection', function (socket) {
-	var id = socket.decoded_token.code;
-	console.log(id, 'connected');
-
-	if(id === 'pinball table client') return;
-	
-	socket.emit('add player', { id: id });
-	
-	socket.on('ping', function (m) {
-		socket.emit('pong', m);
-	});
+http.listen(3000, function(){
+	console.log('listening on *:3000');
 });
 
 // setInterval(function () {
 //   io.sockets.emit('time', Date());
 // }, 5000);
-
-app.get('/host', function (req, res) {
-	var login = {
-		code: 'pinball table client' 
-	};
-
-	var token = jwt.sign(login, jwt_secret, { expiresInMinutes: 60*5 });
-
-	// res.json({token: token});
-	res.sendfile('index.html');
-});
-
-app.get('/client', function (req, res) {
-	res.sendfile('client.html')
-})
-
-// io.on('connection', function (socket) {
-// 	console.log('a user connected');
-// 	CLIENTS.push(socket);
-// 	console.log(CLIENTS);
-// 	// socket.emit('new player', CLIENTS);
-// });
-
-http.listen(3000, function(){
-	console.log('listening on *:3000');
-});
-
 
 // var player = io;
 // var camera = io;

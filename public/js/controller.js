@@ -1,6 +1,4 @@
 var Controller = function() {
-	this.socket = io();
-
 	this.lives = 1;
 	this.pinballs = [];
 	this.players = [];
@@ -8,7 +6,7 @@ var Controller = function() {
 	this.pinballs.push( new Pinball(0, 0) );
 
 	var self = this;
-	this.socket.on('add player', function (data) {
+	socket.on('add player', function (data) {
 		console.log('new player added');
 		this.players.push( new Player(data.id) );
 	}).on('disconnect', function (data) {

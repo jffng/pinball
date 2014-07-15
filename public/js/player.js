@@ -1,6 +1,5 @@
 var Player = function (id) {
 	this.id = id;
-	this.socket = io();
 
 	this.score = 0;
 	this.lives = 5;
