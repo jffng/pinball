@@ -6,6 +6,11 @@ var Controller = function() {
 	this.pinballs.push( new Pinball(0, 0) );
 
 	var self = this;
+
+	this.players.push( new Player( 'left' ) );
+
+	this.players.push( new Player( 'right' ));
+	
 	socket.on('add player', function (data) {
 		console.log('new player added');
 		this.players.push( new Player(data.id) );

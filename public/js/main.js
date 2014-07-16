@@ -71,9 +71,6 @@ function draw () {
 		// get the root position of our body
 		var bodyPos = bb.GetPosition();
 
-		socket.emit( 'positions' , { id: bb.m_userData,
-									pos: bodyPos } );
-
 		// if we haven't created a sprite for this body yet
 		if(bb.m_graphicsData == undefined) {
 
@@ -82,6 +79,9 @@ function draw () {
 			// loop through all our fixtures;
 			for(var bf = bb.GetFixtureList(); bf; bf = bf.GetNext()) {
 				var shape = bf.GetShape();
+				socket.emit( 'positions' , { id: bb.m_userData,
+											position: bodyPos,
+											shape: shape } );
 				if(shape.GetType() == 1) {
 					var verts = shape.GetVertices();
 					graphics.beginFill(0x0000ff, 1);

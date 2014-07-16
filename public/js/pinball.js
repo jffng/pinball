@@ -15,7 +15,7 @@ var Pinball = function (_x, _y) {
 	this.fixDef.restitution = .4;
 	this.fixDef.density = .75;
 
-	// this.bodyDef.userData = "pinball";
+	this.bodyDef.userData = "pinball";
 	self = this;
 
 	this.pinball = world.CreateBody( this.bodyDef ).CreateFixture( this.fixDef );

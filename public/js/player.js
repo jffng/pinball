@@ -4,10 +4,10 @@ var Player = function (id) {
 	this.score = 0;
 	this.lives = 5;
 	
-	if(id){
-		this.flipper = new Flipper( 9, -15.5, "right", "bottom");
-	} else  {
-		this.flipper = new Flipper( - 11, -15.5, "left", "bottom");
+	if(id === "right"){
+		this.flipper = new Flipper( 9, -15.5, id, "bottom");
+	} else if(id === "left") {
+		this.flipper = new Flipper( - 11, -15.5, id, "bottom");
 	}
 
 	$(window).on('keypress', function(e){
