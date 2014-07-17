@@ -33,11 +33,11 @@ var Pinball = function (_x, _y) {
 	}
 
 	listener.PostSolve = function(contact, impulse) {
-		var collidingBodyA = contact.GetFixtureA().GetBody().GetUserData();
-		var collidingBodyB = contact.GetFixtureB().GetBody().GetUserData();
+		var collidingBodyA = contact.m_fixtureA.m_body.m_userData;
+		var collidingBodyB = contact.m_fixtureB.m_body.m_userData;
 			
 		socket.emit('collision', { 
-			fixA: collidingBodyA
+			fixA: collidingBodyA,
 			fixB: collidingBodyB
 		});
 	}

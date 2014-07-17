@@ -64,6 +64,71 @@
         "angle" : 0,
         "angularVelocity" : 0,
         "awake" : true,
+        "id" : 1,
+        "linearVelocity" : 0,
+        "massData-mass" : 1,
+        "name" : "body4",
+        "position" : 
+        {
+          "x" : 14.98568916320801,
+          "y" : -15.49869155883789
+        },
+        "type" : "dynamic"
+      },
+      
+      {
+        "angle" : 0.7882523536682129,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : 0.2,
+            "id" : 1,
+            "name" : "fixture5",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                -2.756930589675903,
+                2.756930589675903,
+                2.756930589675903,
+                -2.756930589675903
+              ],
+              "y" : 
+              [
+                -2.756930589675903,
+                -2.756930589675903,
+                2.756930589675903,
+                2.756930589675903
+              ]
+            }
+          }
+        ],
+        "id" : 2,
+        "linearVelocity" : 0,
+        "name" : "body3",
+        "position" : 
+        {
+          "x" : 0,
+          "y" : -7.851022720336914
+        },
+        "type" : "static"
+      },
+      
+      {
+        "angle" : 0,
+        "angularVelocity" : 0,
+        "awake" : true,
         "fixture" : 
         [
           
@@ -104,7 +169,7 @@
       },
       
       {
-        "angle" : 0,
+        "angle" : 0.5235987901687622,
         "angularVelocity" : 0,
         "awake" : true,
         "fixture" : 
@@ -115,6 +180,7 @@
             "friction" : 0.2,
             "id" : 9,
             "name" : "fixture0",
+            "restitution" : 0.1,
             "shapes" : 
             [
               
@@ -126,10 +192,10 @@
             {
               "x" : 
               [
-                -5.101222991943359,
-                33.79194259643555,
-                33.79194259643555,
-                -5.101222991943359
+                -9.758295059204102,
+                10.09299468994141,
+                10.09299468994141,
+                -9.758295059204102
               ],
               "y" : [ -0.5, -0.5, 0.5, 0.5 ]
             }
@@ -137,11 +203,11 @@
         ],
         "id" : 9,
         "linearVelocity" : 0,
-        "name" : "body0",
+        "name" : "rightbumper",
         "position" : 
         {
-          "x" : -14.87726020812988,
-          "y" : -15.50724411010742
+          "x" : 29.0,
+          "y" : -9.750972747802734
         },
         "type" : "static"
       },
@@ -325,7 +391,7 @@
         "position" : 
         {
           "x" : 0.036437988281250,
-          "y" : 17.8967285156250
+          "y" : 16.85990905761719
         },
         "type" : "static"
       },
@@ -371,12 +437,144 @@
           "y" : -29.21640777587891
         },
         "type" : "static"
+      },
+      
+      {
+        "angle" : 0,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : 0.2,
+            "id" : 19,
+            "name" : "fixture0",
+            "restitution" : 1,
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                -9.808690071105957,
+                10.04259872436523,
+                10.04259872436523,
+                -9.808690071105957
+              ],
+              "y" : [ -0.5, -0.5, 0.5, 0.5 ]
+            }
+          }
+        ],
+        "id" : 19,
+        "linearVelocity" : 0,
+        "name" : "body0",
+        "position" : 
+        {
+          "x" : -0.2468223571777344,
+          "y" : -15.50720024108887
+        },
+        "type" : "static"
+      },
+      
+      {
+        "angle" : 0.5235987901687622,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : 0.2,
+            "id" : 20,
+            "name" : "fixture0",
+            "restitution" : 0.1,
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                -9.758295059204102,
+                10.09299468994141,
+                10.09299468994141,
+                -9.758295059204102
+              ],
+              "y" : [ -0.5, -0.5, 0.5, 0.5 ]
+            }
+          }
+        ],
+        "id" : 20,
+        "linearVelocity" : 0,
+        "name" : "body0",
+        "position" : 
+        {
+          "x" : 29.0,
+          "y" : -9.750972747802734
+        },
+        "type" : "static"
+      },
+      
+      {
+        "angle" : -0.5235987901687622,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : 0.2,
+            "id" : 21,
+            "name" : "fixture0",
+            "restitution" : 0.1,
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                -9.868711471557617,
+                9.982578277587891,
+                9.982578277587891,
+                -9.868711471557617
+              ],
+              "y" : [ -0.5, -0.5, 0.5, 0.5 ]
+            }
+          }
+        ],
+        "id" : 21,
+        "linearVelocity" : 0,
+        "name" : "leftbumper",
+        "position" : 
+        {
+          "x" : -29.0,
+          "y" : -9.661756515502930
+        },
+        "type" : "static"
       }
     ],
-    "positionIterations" : 3,
+    "positionIterations" : 10,
     "stepsPerSecond" : 60.0,
     "subStepping" : false,
-    "velocityIterations" : 8,
+    "velocityIterations" : 10,
     "warmStarting" : true
   }
 }

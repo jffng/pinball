@@ -17,7 +17,7 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 	this.bodyDef = new b2BodyDef;
 	this.bodyDef.type = b2Body.b2_dynamicBody;
 
-	this.bodyDef.userData = 'flipper';
+	this.bodyDef.userData = type;
 
 	if(type == "left") {
 		// set flipping torque to clockwise

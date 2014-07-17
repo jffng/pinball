@@ -10,9 +10,43 @@ var Controller = function() {
 	this.players.push( new Player( 'left' ) );
 
 	this.players.push( new Player( 'right' ));
-	
+
 	socket.on('contact', function (data) {
-		console.log(data);
+
+		// check to see which player hit the pinball last
+		// 
+		// 
+		if(data.fixA === 'left' || data.fixB === 'left'){
+
+			self.pinballs[0].pinball.m_body.m_userData = 'left';
+
+			console.log(self.pinballs[0].pinball.m_body.m_userData)
+
+		} 
+
+		else if (data.fixA === 'right' || data.fixB === 'right'){
+
+			self.pinballs[0].pinball.m_body.m_userData = 'right';
+
+			console.log(self.pinballs[0].pinball.m_body.m_userData)
+
+		}
+
+		if (data.fixA === 'Can' || data.fixB === 'Can'){
+
+			for(var i = 0; i < self.players.length; i++){
+				if(self.pinballs[0].pinball.m_body.m_userData === self.players[i].id){
+
+					self.players[i].score ++;
+					console.log(self.pinballs[0].pinball.m_body.m_userData);
+
+					self.updateScore();
+				}
+
+			}
+
+		}
+
 	});
 
 	socket.on('add player', function (data) {
@@ -35,4 +69,12 @@ Controller.prototype.update = function() {
 		}
 		else{
 		}
+};
+
+Controller.prototype.updateScore = function() {
+
+	$('#scoreLeft').html('<span style="font-size: 64px;">' + this.players[0].score + '</span>');
+
+	$('#scoreRight').html('<span style="font-size: 64px;">' + this.players[1].score + '</span>');
+
 };

@@ -77,6 +77,55 @@
       },
       
       {
+        "angle" : 0.7882523536682129,
+        "angularVelocity" : 0,
+        "awake" : true,
+        "fixture" : 
+        [
+          
+          {
+            "density" : 1,
+            "friction" : 0.2,
+            "id" : 1,
+            "name" : "fixture5",
+            "shapes" : 
+            [
+              
+              {
+                "type" : "polygon"
+              }
+            ],
+            "vertices" : 
+            {
+              "x" : 
+              [
+                -2.756930589675903,
+                2.756930589675903,
+                2.756930589675903,
+                -2.756930589675903
+              ],
+              "y" : 
+              [
+                -2.756930589675903,
+                -2.756930589675903,
+                2.756930589675903,
+                2.756930589675903
+              ]
+            }
+          }
+        ],
+        "id" : 2,
+        "linearVelocity" : 0,
+        "name" : "body3",
+        "position" : 
+        {
+          "x" : 0,
+          "y" : -7.851022720336914
+        },
+        "type" : "static"
+      },
+      
+      {
         "angle" : 0,
         "angularVelocity" : 0,
         "awake" : true,
@@ -120,7 +169,7 @@
       },
       
       {
-        "angle" : 0,
+        "angle" : 0.5235987901687622,
         "angularVelocity" : 0,
         "awake" : true,
         "fixture" : 
@@ -131,7 +180,7 @@
             "friction" : 0.2,
             "id" : 9,
             "name" : "fixture0",
-            "restitution" : 1,
+            "restitution" : 0.1,
             "shapes" : 
             [
               
@@ -154,11 +203,11 @@
         ],
         "id" : 9,
         "linearVelocity" : 0,
-        "name" : "body0",
+        "name" : "rightbumper",
         "position" : 
         {
-          "x" : 30.13501930236816,
-          "y" : -15.50720024108887
+          "x" : 29.0,
+          "y" : -9.750972747802734
         },
         "type" : "static"
       },
@@ -435,7 +484,7 @@
       },
       
       {
-        "angle" : 0,
+        "angle" : 0.5235987901687622,
         "angularVelocity" : 0,
         "awake" : true,
         "fixture" : 
@@ -446,7 +495,7 @@
             "friction" : 0.2,
             "id" : 20,
             "name" : "fixture0",
-            "restitution" : 1,
+            "restitution" : 0.1,
             "shapes" : 
             [
               
@@ -472,14 +521,14 @@
         "name" : "body0",
         "position" : 
         {
-          "x" : 30.13501930236816,
-          "y" : -15.50720024108887
+          "x" : 29.0,
+          "y" : -9.750972747802734
         },
         "type" : "static"
       },
       
       {
-        "angle" : 0,
+        "angle" : -0.5235987901687622,
         "angularVelocity" : 0,
         "awake" : true,
         "fixture" : 
@@ -490,7 +539,7 @@
             "friction" : 0.2,
             "id" : 21,
             "name" : "fixture0",
-            "restitution" : 1,
+            "restitution" : 0.1,
             "shapes" : 
             [
               
@@ -502,10 +551,10 @@
             {
               "x" : 
               [
-                5.145647048950195,
-                24.99693679809570,
-                24.99693679809570,
-                5.145647048950195
+                -9.868711471557617,
+                9.982578277587891,
+                9.982578277587891,
+                -9.868711471557617
               ],
               "y" : [ -0.5, -0.5, 0.5, 0.5 ]
             }
@@ -513,49 +562,11 @@
         ],
         "id" : 21,
         "linearVelocity" : 0,
-        "name" : "body0",
+        "name" : "leftbumper",
         "position" : 
         {
-          "x" : -44.98567199707031,
-          "y" : -15.50720024108887
-        },
-        "type" : "static"
-      },
-      
-      {
-        "angle" : 1.585038065910339,
-        "angularVelocity" : 0,
-        "awake" : true,
-        "fixture" : 
-        [
-          
-          {
-            "density" : 1,
-            "friction" : 0.2,
-            "id" : 24,
-            "name" : "fixture5",
-            "restitution" : 2,
-            "shapes" : 
-            [
-              
-              {
-                "type" : "polygon"
-              }
-            ],
-            "vertices" : 
-            {
-              "x" : [ 0.5, -4.903355121612549, -5.093550205230713 ],
-              "y" : [ 0.0, 5.128750801086426, -4.842199325561523 ]
-            }
-          }
-        ],
-        "id" : 24,
-        "linearVelocity" : 0,
-        "name" : "body3",
-        "position" : 
-        {
-          "x" : 0.02344417572021484,
-          "y" : -4.988243103027344
+          "x" : -28.64313507080078,
+          "y" : -9.661756515502930
         },
         "type" : "static"
       }

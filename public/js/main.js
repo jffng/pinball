@@ -45,7 +45,7 @@ function setup() {
 	document.body.appendChild(renderer.view);
 
 	// create the b2 world
-	world = new b2World( new b2Vec2(0, -20), true );
+	world = new b2World( new b2Vec2(0, -30), true );
 
 	// instantiate a new level of static components
 	level = new Level("test");

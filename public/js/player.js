@@ -9,13 +9,13 @@ var Player = function (id) {
 	if(id === "right"){
 		flipper = new Flipper( 9, -15.5, id, "bottom");
 	} else if(id === "left") {
-		flipper = new Flipper( - 11, -15.5, id, "bottom");
+		flipper = new Flipper( - 11.8, -15.5, id, "bottom");
 	}
 
 	self = this;
 
 	$(window).on('keypress', function(e){
-		console.log(e.keyCode);
+		// console.log(e.keyCode);
 		if(e.keyCode === 97) flipper.sawBody.ApplyTorque(200000); 
 		if(e.keyCode === 100) flipper.sawBody.ApplyTorque(-200000);
 	});
