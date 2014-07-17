@@ -14,8 +14,10 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 
 	this.orientation = orientation;
 	this.type = type;
-	var bodyDef = new b2BodyDef;
-	bodyDef.type = b2Body.b2_dynamicBody;
+	this.bodyDef = new b2BodyDef;
+	this.bodyDef.type = b2Body.b2_dynamicBody;
+
+	this.bodyDef.userData = 'flipper';
 
 	if(type == "left") {
 		// set flipping torque to clockwise
@@ -23,20 +25,20 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 
 		switch(this.orientation){
 			case "top":
-				bodyDef.position.x = _xPos + 3 * flipperWidth;
-				bodyDef.position.y = _yPos;
+				this.bodyDef.position.x = _xPos + 3 * flipperWidth;
+				this.bodyDef.position.y = _yPos;
 				break;
 			case "bottom":
-				bodyDef.position.x = _xPos - flipperWidth;
-				bodyDef.position.y = _yPos;
+				this.bodyDef.position.x = _xPos - flipperWidth;
+				this.bodyDef.position.y = _yPos;
 				break;
 			case "left":
-				bodyDef.position.x = _xPos;
-				bodyDef.position.y = _yPos - 2 * flipperWidth;
+				this.bodyDef.position.x = _xPos;
+				this.bodyDef.position.y = _yPos - 2 * flipperWidth;
 				break;
 			case "right":
-				bodyDef.position.x = _xPos + 1.6 * flipperWidth;
-				bodyDef.position.y = _yPos + 5;
+				this.bodyDef.position.x = _xPos + 1.6 * flipperWidth;
+				this.bodyDef.position.y = _yPos + 5;
 				break;													
 		}
 	
@@ -48,26 +50,26 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 
 		switch(this.orientation){
 			case "top":
-				bodyDef.position.x = _xPos - 3 * flipperWidth;
-				bodyDef.position.y = _yPos;
+				this.bodyDef.position.x = _xPos - 3 * flipperWidth;
+				this.bodyDef.position.y = _yPos;
 				break;
 			case "bottom":
-				bodyDef.position.x = _xPos + 2 * flipperWidth;
-				bodyDef.position.y = _yPos;
+				this.bodyDef.position.x = _xPos + 2 * flipperWidth;
+				this.bodyDef.position.y = _yPos;
 				break;
 			case "left":
-				bodyDef.position.x = _xPos - 1.5 * flipperWidth;
-				bodyDef.position.y = _yPos + 2 * flipperWidth;
+				this.bodyDef.position.x = _xPos - 1.5 * flipperWidth;
+				this.bodyDef.position.y = _yPos + 2 * flipperWidth;
 				break;
 			case "right":
-				bodyDef.position.x = _xPos;
-				bodyDef.position.y = _yPos - 5;
+				this.bodyDef.position.x = _xPos;
+				this.bodyDef.position.y = _yPos - 5;
 				break;													
 		}
 	
 	}	
 
-	this.sawBody = world.CreateBody(bodyDef);
+	this.sawBody = world.CreateBody(this.bodyDef);
 
 	// define the shape of the body using the fixture definition
 	var sawFixtureDef = new b2FixtureDef;	
@@ -83,15 +85,15 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 	if(type == "left")  localCenter.Add( new b2Vec2( - 4 / 5 * flipperWidth, 0 ) );
 	if(type == "right") localCenter.Add( new b2Vec2(   4 / 5 * flipperWidth, 0 ) );
 
-	var circleBodyDef = new b2BodyDef;
-	circleBodyDef.position.x = localCenter.x;
-	circleBodyDef.position.y = localCenter.y;
-	circleBodyDef.type = b2Body.b2_staticBody;
+	var circlebodyDef = new b2BodyDef;
+	circlebodyDef.position.x = localCenter.x;
+	circlebodyDef.position.y = localCenter.y;
+	circlebodyDef.type = b2Body.b2_staticBody;
 
 	var circleFixtureDef = new b2FixtureDef;
 	circleFixtureDef.shape = new b2CircleShape( 0.1 );
 
-	circleBody = world.CreateBody(circleBodyDef);
+	circleBody = world.CreateBody(circlebodyDef);
 	circleBody.CreateFixture(circleFixtureDef);
 
 	this.revoluteJointDef = new b2RevoluteJointDef;

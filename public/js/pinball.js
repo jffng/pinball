@@ -23,26 +23,23 @@ var Pinball = function (_x, _y) {
 	var listener = new Box2D.Dynamics.b2ContactListener;
 
 	listener.BeginContact = function(contact) {
-		var collidingBody = contact.GetFixtureB().GetBody().GetUserData();
-		if(collidingBody == "Can"){
-			console.log("Pinball hit the can");
-		}
+		// var collidingBody = contact.GetFixtureB().GetBody().GetUserData();
+		// if(collidingBody == "Can"){
+		// 	console.log("Pinball hit the can");
+		// }
 	}
 	
 	listener.EndContact = function(contact) {
 	}
 
 	listener.PostSolve = function(contact, impulse) {
-		var collidingBody = contact.GetFixtureB().GetBody().GetUserData();
-		
-		if(collidingBody == "Can") {
-			console.log(impulse);	
-			// self.socket.emit('hit can', impulse);
-		}
-		if(collidingBody == "Flipper") {
-			console.log(impulse);	
-			// self.socket.emit('ball out', impulse);
-		}		
+		var collidingBodyA = contact.GetFixtureA().GetBody().GetUserData();
+		var collidingBodyB = contact.GetFixtureB().GetBody().GetUserData();
+			
+		socket.emit('collision', { 
+			fixA: collidingBodyA
+			fixB: collidingBodyB
+		});
 	}
 
 	listener.PreSolve = function(contact, oldManifold) {

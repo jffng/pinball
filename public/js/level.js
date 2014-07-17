@@ -6,11 +6,10 @@ var Level = function (levelType) {
 
 		var self = this;
 		$(window).on('click', function(e){
-			//1920 x 1080
 			var xCoordinate = ( e.clientX * 60 / 1920 ) - 30;
 			var yCoordinate = -1 * ( ( e.clientY * 32 / 1080 ) - 17 ) ;
-			console.log(xCoordinate);
-			console.log(yCoordinate);
+			// console.log(xCoordinate);
+			// console.log(yCoordinate);
 			self.obstacles.push(new Can( xCoordinate, yCoordinate, undefined ));
 		});
 

@@ -14,7 +14,11 @@ function connect () {
 	}).on('disconnect', function () {
 		console.log('- disconnected');
 	});
+
+	// da
 }
+
+
 
 $('#login').submit(function (e) {
 	e.preventDefault();

@@ -8,11 +8,9 @@ var bodyParser = require('body-parser')
 var jwt = require('jsonwebtoken');
 var jwt_secret = 'cats';
 
-var CLIENTS = [];
-var numPlayers = 0;
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
+//////////////////// //////////////////// ////////////////////
+//////////////////// SOCKET COMMUNICATION ////////////////////
+//////////////////// //////////////////// ////////////////////
 
 io.use(socketio_jwt.authorize({
 	secret: jwt_secret,
@@ -20,13 +18,8 @@ io.use(socketio_jwt.authorize({
 }));
 
 io.on('connection', function (socket) {
-	console.log('user ' + numPlayers + ' connected');
-	++numPlayers;
-
-	// var id = socket.decoded_token.code;
-	// console.log(id, 'connected');
-
-	id = 0;
+	var id = socket.decoded_token.code;
+	console.log(id, 'connected');
 
 	if(id) {
 		// socket.on('positions', function(p) {
@@ -37,7 +30,22 @@ io.on('connection', function (socket) {
 			io.emit('positions', p );
 		});
 	}
+
+	socket.on('collision', function (contact) {
+		io.emit('contact', contact)
+	});
+
+	socket.on('disconnect', function () {
+		console.log(id, 'disconnected');
+	});
 });
+
+//////////////////// //////////////////// ////////////////////
+//////////////////// HERE IS THE EXPRESS APP /////////////////
+//////////////////// //////////////////// ////////////////////
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 
 app.get('/client', function (req, res) {
 	res.sendfile('client.html')
@@ -63,49 +71,6 @@ app.post('/login', function (req, res, next) {
 http.listen(3000, function(){
 	console.log('listening on *:3000');
 });
-
-// setInterval(function () {
-//   io.sockets.emit('time', Date());
-// }, 5000);
-
-// var player = io;
-// var camera = io;
-// var board = io;
-
-// player.on('connection', function(socket){
-
-// 	console.log('a player connected');
-
-// 	// player receives a ball from the board
-// 	socket.on('ball in', function(data){
-// 		console.log(data);
-// 	});
-// }
-// 	// player sends a message about the time of contact 
-// 	socket.on('contact', function (data) {
-// 		console.log(data);
-// 	});
-
-// });
-
-// camera.on('connection', function (socket) {
-// 	console.log('a camera connected');
-
-// 	// camera sends array of obstacles to the board
-// 	socket.emit('obstacles', function (data) {
-		
-// 	});
-// });
-
-// board.on('connection', function (argument) {
-// 	console.log('a board connected');
-
-// 	socket.on('ball out', function (argument) {
-// 		socket.emit('')
-// 	});
-
-// 	socket.on('')
-// });
 
 // identify what is connecting via socket.io: player, board, camera --> each of these will go to a different controller
 // 1. if player, only sending through flip or not flip (ons and offs), latency. player sends back, ball + velocity + vector direction of entry
