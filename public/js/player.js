@@ -16,15 +16,12 @@ var Player = function (id) {
 
 	$(window).on('keypress', function(e){
 		// console.log(e.keyCode);
+		// 
 		if(e.keyCode === 97) flipper.sawBody.ApplyTorque(200000); 
-		if(e.keyCode === 100) flipper.sawBody.ApplyTorque(-200000);
-	});
 
-	// $(window).on('keyup', function(e){
-	// 	console.log(e.keyCode);
-	// 	if(e.keyCode === 68) flipper.sawBody.ApplyTorque(-200000);
-	// 	if(e.keyCode === 65) flipper.sawBody.ApplyTorque(200000);
-	// });
+		if(e.keyCode === 100) flipper.sawBody.ApplyTorque(-200000);
+
+	});
 
 };
 
@@ -33,7 +30,7 @@ Player.prototype.update = function(first_argument) {
 };
 
 Player.prototype.addPoints = function(numPoints) {
-	this.points += numPoints;
+	this.score += numPoints;
 };
 
 

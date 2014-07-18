@@ -18,27 +18,27 @@ var Controller = function() {
 		// 
 		if(data.fixA === 'left' || data.fixB === 'left'){
 
-			self.pinballs[0].pinball.m_body.m_userData = 'left';
+			self.pinballs[0].pinball.m_body.m_player = 'left';
 
-			console.log(self.pinballs[0].pinball.m_body.m_userData)
+			console.log(self.pinballs[0].pinball.m_body.m_player)
 
 		} 
 
 		else if (data.fixA === 'right' || data.fixB === 'right'){
 
-			self.pinballs[0].pinball.m_body.m_userData = 'right';
+			self.pinballs[0].pinball.m_body.m_player = 'right';
 
-			console.log(self.pinballs[0].pinball.m_body.m_userData)
+			console.log(self.pinballs[0].pinball.m_body.m_player)
 
 		}
 
 		if (data.fixA === 'Can' || data.fixB === 'Can'){
 
 			for(var i = 0; i < self.players.length; i++){
-				if(self.pinballs[0].pinball.m_body.m_userData === self.players[i].id){
+				if(self.pinballs[0].pinball.m_body.m_player === self.players[i].id){
 
-					self.players[i].score ++;
-					console.log(self.pinballs[0].pinball.m_body.m_userData);
+					self.players[i].addPoints(1);
+					console.log(self.pinballs[0].pinball.m_body.m_player);
 
 					self.updateScore();
 				}

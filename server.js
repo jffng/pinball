@@ -21,15 +21,16 @@ io.on('connection', function (socket) {
 	var id = socket.decoded_token.code;
 	console.log(id, 'connected');
 
-	if(id) {
-		// socket.on('positions', function(p) {
-		// 	socket.broadcast('positions', p);
-		// })	
-	} else {
+	// if(id) {
+	// 	// socket.on('positions', function(p) {
+	// 	// 	socket.broadcast('positions', p);
+	// 	// })	
+	// } else {
 		socket.on('positions', function (p) {
+			console.log('io.emit positions')
 			io.emit('positions', p );
 		});
-	}
+	// }
 
 	socket.on('collision', function (contact) {
 		io.emit('contact', contact)

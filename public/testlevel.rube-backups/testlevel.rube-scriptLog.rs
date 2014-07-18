@@ -1,1 +1,59 @@
-//Restarted script log at Thu Jul 17 18:00:53 2014
+//Started script log at Fri Jul 18 10:25:56 2014
+
+setCursor(-15.0029, -15.0564);
+addBody(3, '{"awake":true,"type":"dynamic"}');
+getBody(3).addFixture(2, '{"density":1,"shapes":[{"radius":0,"type":"polygon"}],"friction":0.2,"vertices":{"x":[-0.5,0.5,0.5,-0.5],"y":[-0.5,-0.5,0.5,0.5]}}');
+getBody(3).setPosition(-15.0029,-15.0564);
+getBody(3).select();
+getBody(3).setPosition(-15.0029,-15.0564);
+{
+	fixture _rube_redoFixture = getFixture(2);
+	_rube_redoFixture.setVertex(0,-4.85268,-4.85268);
+	_rube_redoFixture.setVertex(1,4.85269,-4.85268);
+	_rube_redoFixture.setVertex(2,4.85269,4.85268);
+	_rube_redoFixture.setVertex(3,-4.85268,4.85268);
+}
+getBody(3).deselect();
+getBody(3).select();
+getBody(3).setType(0);
+getBody(3).setPosition(-15,-15);
+getBody(3).deselect();
+getBody(3).select();
+getBody(3).deselect();
+setCursor(0.0365677, -0.0459938);
+getBody(3).select();
+getFixture(2).select();
+getFixture(2).deselect();
+getFixture(2).select();
+getFixture(2).deselect();
+getFixture(2).select();
+getFixture(2).deselect();
+getFixture(2).select();
+getFixture(2).deselect();
+getFixture(2).select();
+getFixture(2).deselect();
+getFixture(2).select();
+getFixture(2).deselect();
+getFixture(2).select();
+getFixture(2).deselect();
+getFixture(2).delete();
+getFixture(21).select();
+getFixture(21).deselect();
+getFixture(19).select();
+getFixture(21).select();
+getFixture(19).deselect();
+getFixture(21).deselect();
+getFixture(19).select();
+getFixture(21).select();
+getFixture(19).deselect();
+getFixture(21).deselect();
+getFixture(19).select();
+getFixture(19).deselect();
+getFixture(19).select();
+getFixture(19).deselect();
+getFixture(19).select();
+getFixture(19).deselect();
+getFixture(19).select();
+getFixture(21).select();
+getFixture(19).deselect();
+getFixture(21).deselect();

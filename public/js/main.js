@@ -79,9 +79,9 @@ function draw () {
 			// loop through all our fixtures;
 			for(var bf = bb.GetFixtureList(); bf; bf = bf.GetNext()) {
 				var shape = bf.GetShape();
-				socket.emit( 'positions' , { id: bb.m_userData,
-											position: bodyPos,
-											shape: shape } );
+					socket.emit( 'positions' , { id: bb.m_userData,
+												position: bodyPos,
+												shape: shape } );
 				if(shape.GetType() == 1) {
 					var verts = shape.GetVertices();
 					graphics.beginFill(0x0000ff, 1);
@@ -104,6 +104,23 @@ function draw () {
 			graphics.position.y = bodyPos.y * -drawScale;
 			bb.m_graphicsData = graphics;
 		} else if(bb.m_graphicsData) {
+				if( bodyPos.x > -20 && bodyPos.x < -10 && bodyPos.y > -20 && bodyPos.y < -10 && bb.m_userData === "pinball") {
+					// console.log(bodyPos.x, bb.m_userData)
+
+					socket.emit( 'positions' , { id: bb.m_userData,
+												position: bodyPos,
+												shape: shape } );
+
+				}
+
+				else if( bodyPos.x > 10 && bodyPos.x < 20 && bodyPos.y > -20 && bodyPos.y < -10 && bb.m_userData === "pinball"){
+					// console.log(bodyPos.x, bb.m_userData)
+					socket.emit( 'positions' , { id: bb.m_userData,
+												position: bodyPos,
+												shape: shape } );
+
+				}
+
 				var s = bb.m_graphicsData;
 				s.position.x = bodyPos.x * drawScale;
 				s.position.y = bodyPos.y * -drawScale;

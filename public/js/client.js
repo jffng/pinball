@@ -8,9 +8,7 @@ function connect () {
 	});
 
 	socket.on('positions', function (position) {
-		$(document).on('click', function(){
-			console.log(position);
-		});
+		console.log(position);
 	}).on('disconnect', function () {
 		console.log('- disconnected');
 	});
