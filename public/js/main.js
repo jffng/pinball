@@ -3,6 +3,8 @@ var world;
 var socket;
 var drawScale = 32;
 var container, renderer, stats, stage;
+var leftPlayer = makeid();
+var rightPlayer = makeid();
 
 $(function  () {
 	$('#login').submit(function (e) {
@@ -24,6 +26,9 @@ $(function  () {
 });
 
 function setup() {
+	$('#leftPlayer').html(leftPlayer);
+	$('#rightPlayer').html(rightPlayer);
+
 		// create an new instance of a pixi stage
 	stage = new PIXI.Stage(0x00000);
 
@@ -45,7 +50,7 @@ function setup() {
 	document.body.appendChild(renderer.view);
 
 	// create the b2 world
-	world = new b2World( new b2Vec2(0, -30), true );
+	world = new b2World( new b2Vec2(0, -90), true );
 
 	// instantiate a new level of static components
 	level = new Level("test");
@@ -61,9 +66,41 @@ function connect () {
 		'forceNew': true
 	});
 
+	$('#login').hide( 'slow' );
+
 	setup();
 
-	$('#login').hide( 'slow' );
+	socket.emit('player codes', { leftPlayer: leftPlayer, rightPlayer: rightPlayer });
+	
+	socket.on('player connected', function (id) {
+		console.log(id);
+
+		if(id === leftPlayer) {
+
+			console.log('left player joined');
+
+			$('#leftPlayer').hide("slow");
+		
+		} else if(id === rightPlayer ) {
+
+			console.log('right player joined');
+
+			$('#rightPlayer').hide('slow');
+
+		}
+
+	}).on('player disconnected', function (id) {
+		if(id === leftPlayer) {
+
+			$('#leftPlayer').show("slow");
+
+		} else if(id === rightPlayer){
+
+			$('#rightPlayer').show("slow");
+
+		}
+	})
+
 }
 
 function draw () {
@@ -83,14 +120,23 @@ function draw () {
 												position: bodyPos,
 												shape: shape } );
 				if(shape.GetType() == 1) {
-					var verts = shape.GetVertices();
-					graphics.beginFill(0x0000ff, 1);
-					graphics.lineStyle(2, 0x000000, .5);
-					for(var v = 0; v < verts.length; v++) {
-						graphics.lineTo(verts[v].x * drawScale, verts[v].y * -drawScale);
-					}
-					graphics.lineTo(verts[0].x * drawScale, verts[0].y * -drawScale + .001);
-					graphics.endFill();						
+					// if(bb.m_userData != 'left' && bb.m_userData != 'right'){
+
+						var verts = shape.GetVertices();
+						graphics.beginFill(0x0000ff, 1);
+						graphics.lineStyle(2, 0x000000, .5);
+						
+						for(var v = 0; v < verts.length; v++) {
+						
+							graphics.lineTo(verts[v].x * drawScale, verts[v].y * -drawScale);
+						
+						}
+						
+						graphics.lineTo(verts[0].x * drawScale, verts[0].y * -drawScale + .001);
+						graphics.endFill();		
+						
+					// }
+				
 				} else if(shape.GetType() == 0) {
 					graphics.beginFill(0xff0000, 1);
 					graphics.lineStyle(2, 0x000000, .5);
@@ -161,3 +207,14 @@ window.requestAnimFrame = (function(){
 			window.setTimeout(callback, 1000 / 60);
 			};
 })();
+
+function makeid()
+{
+    var text = "";
+    var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < 3; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}

@@ -7,28 +7,27 @@ var Controller = function() {
 
 	var self = this;
 
-	this.players.push( new Player( 'left' ) );
+	// this.players.push( new Player( leftPlayer ) );
 
-	this.players.push( new Player( 'right' ));
+	// this.players.push( new Player( rightPlayer ));
 
 	socket.on('contact', function (data) {
 
 		// check to see which player hit the pinball last
-		// 
-		// 
-		if(data.fixA === 'left' || data.fixB === 'left'){
 
-			self.pinballs[0].pinball.m_body.m_player = 'left';
+		if(data.fixA === leftPlayer || data.fixB === leftPlayer){
 
-			console.log(self.pinballs[0].pinball.m_body.m_player)
+			self.pinballs[0].pinball.m_body.m_player = leftPlayer;
+
+			// console.log(self.pinballs[0].pinball.m_body.m_player)
 
 		} 
 
-		else if (data.fixA === 'right' || data.fixB === 'right'){
+		else if (data.fixA === rightPlayer || data.fixB === rightPlayer){
 
-			self.pinballs[0].pinball.m_body.m_player = 'right';
+			self.pinballs[0].pinball.m_body.m_player = rightPlayer;
 
-			console.log(self.pinballs[0].pinball.m_body.m_player)
+			// console.log(self.pinballs[0].pinball.m_body.m_player)
 
 		}
 
@@ -49,10 +48,10 @@ var Controller = function() {
 
 	});
 
-	socket.on('add player', function (data) {
-		console.log('new player added');
-		this.players.push( new Player(data.id) );
-	}).on('disconnect', function (data) {
+	socket.on('player connected', function (id) {
+		console.log(id + ' joined the game');
+		self.players.push( new Player( id ) );
+	}).on('player disconnected', function (data) {
 		// body...
 	});
 }

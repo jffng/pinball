@@ -7,7 +7,7 @@ function connect () {
 		'forceNew': true
 	});
 
-	socket.on('positions', function (position) {
+	socket.on('client position data', function (position) {
 		console.log(position);
 	}).on('disconnect', function () {
 		console.log('- disconnected');
@@ -15,7 +15,6 @@ function connect () {
 
 	// da
 }
-
 
 
 $('#login').submit(function (e) {

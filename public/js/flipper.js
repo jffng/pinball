@@ -17,11 +17,11 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 	this.bodyDef = new b2BodyDef;
 	this.bodyDef.type = b2Body.b2_dynamicBody;
 
-	this.bodyDef.userData = type;
 
 	if(type == "left") {
 		// set flipping torque to clockwise
 		this.flipTorque = -1;
+		this.bodyDef.userData = leftPlayer;
 
 		switch(this.orientation){
 			case "top":
@@ -47,6 +47,7 @@ var Flipper = function(_xPos, _yPos, type, orientation) {
 	else if(type == "right") {
 		// set flipping torque to counter clockwise
 		this.flipTorque = 1;
+		this.bodyDef.userData = rightPlayer;		
 
 		switch(this.orientation){
 			case "top":

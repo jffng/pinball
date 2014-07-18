@@ -3,25 +3,26 @@ var Player = function (id) {
 
 	this.score = 0;
 	this.lives = 5;
+
+	if(id === leftPlayer){
+		var flipper = new Flipper( -11.8, -15.5, 'left', 'bottom');
+
+		$(window).on('keypress', function(e){
+
+			if(e.keyCode === 97) flipper.sawBody.ApplyTorque(400000); 
+
+		});
+
+	} else if(id === rightPlayer) {
+		var flipper = new Flipper( 9, -15.5, 'right', 'bottom');
 	
-	var flipper;
+		$(window).on('keypress', function(e){
 
-	if(id === "right"){
-		flipper = new Flipper( 9, -15.5, id, "bottom");
-	} else if(id === "left") {
-		flipper = new Flipper( - 11.8, -15.5, id, "bottom");
+			if(e.keyCode === 100) flipper.sawBody.ApplyTorque(-400000); 
+
+		});
+
 	}
-
-	self = this;
-
-	$(window).on('keypress', function(e){
-		// console.log(e.keyCode);
-		// 
-		if(e.keyCode === 97) flipper.sawBody.ApplyTorque(200000); 
-
-		if(e.keyCode === 100) flipper.sawBody.ApplyTorque(-200000);
-
-	});
 
 };
 
