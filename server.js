@@ -43,6 +43,11 @@ io.on('connection', function (socket) {
 		io.emit('contact', contact)
 	});
 
+	socket.on('ball in', function (ball) {
+		// console.log(ball);
+		io.emit('ball to table', ball);
+	})
+
 	socket.on('disconnect', function () {
 		io.emit('player disconnected', id);
 		console.log(id, 'disconnected');

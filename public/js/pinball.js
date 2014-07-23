@@ -57,7 +57,7 @@ Pinball.prototype.isDead = function() {
 	this.pos = this.pinball.m_body.GetPosition();
 
 	if(this.pos.y < -18) {
-		return true;
+		// return true;
 	}
 	else return false;
 };

@@ -48,6 +48,12 @@ var Controller = function() {
 
 	});
 
+	socket.on('ball to table', function (ball) {
+		console.log(ball);
+		self.pinballs.push( new Pinball( ball.xPos, ball.yPos ) );
+		self.pinballs[self.pinballs.length - 1].pinball.m_body.SetLinearVelocity(new b2Vec2( ball.xVelocity , ball.yVelocity ) );
+	});
+
 	socket.on('player connected', function (id) {
 		console.log(id + ' joined the game');
 		self.players.push( new Player( id ) );

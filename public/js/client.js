@@ -9,11 +9,27 @@ function connect () {
 
 	socket.on('client position data', function (position) {
 		console.log(position);
-	}).on('disconnect', function () {
+	});
+
+	$(document).on('click', function () {
+
+		var ball = {
+
+			xPos: ( - 9 * Math.random() ) - 10,
+			yPos: -16,
+			xVelocity: ( 20 * Math.random() ) - 10,
+			yVelocity: 120 * Math.random() 
+
+		}
+
+		socket.emit( 'ball in', ball );
+
+	});
+
+	socket.on('disconnect', function () {
 		console.log('- disconnected');
 	});
 
-	// da
 }
 
 
