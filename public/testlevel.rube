@@ -61,22 +61,6 @@
     [
       
       {
-        "angle" : 0,
-        "angularVelocity" : 0,
-        "awake" : true,
-        "id" : 1,
-        "linearVelocity" : 0,
-        "massData-mass" : 1,
-        "name" : "body4",
-        "position" : 
-        {
-          "x" : 14.98568916320801,
-          "y" : -15.49869155883789
-        },
-        "type" : "dynamic"
-      },
-      
-      {
         "angle" : 0.7882523536682129,
         "angularVelocity" : 0,
         "awake" : true,
@@ -121,21 +105,6 @@
         {
           "x" : 0,
           "y" : -7.851022720336914
-        },
-        "type" : "static"
-      },
-      
-      {
-        "angle" : 0,
-        "angularVelocity" : 0,
-        "awake" : true,
-        "id" : 3,
-        "linearVelocity" : 0,
-        "name" : "body7",
-        "position" : 
-        {
-          "x" : -15.0,
-          "y" : -15.0
         },
         "type" : "static"
       },
@@ -222,7 +191,7 @@
         "position" : 
         {
           "x" : 29.0,
-          "y" : -9.750972747802734
+          "y" : -9.514832496643066
         },
         "type" : "static"
       },
@@ -537,7 +506,7 @@
         "position" : 
         {
           "x" : 29.0,
-          "y" : -9.750972747802734
+          "y" : -9.514832496643066
         },
         "type" : "static"
       },
@@ -581,7 +550,7 @@
         "position" : 
         {
           "x" : -28.64313507080078,
-          "y" : -9.661756515502930
+          "y" : -9.369121551513672
         },
         "type" : "static"
       }

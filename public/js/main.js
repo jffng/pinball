@@ -154,6 +154,7 @@ function draw () {
 					// console.log(bodyPos.x, bb.m_userData)
 
 					socket.emit( 'positions' , { id: bb.m_userData,
+												velocity: bb.GetLinearVelocity(),
 												position: bodyPos,
 												shape: shape } );
 
@@ -162,6 +163,7 @@ function draw () {
 				else if( bodyPos.x > 10 && bodyPos.x < 20 && bodyPos.y > -20 && bodyPos.y < -10 && bb.m_userData === "pinball"){
 					// console.log(bodyPos.x, bb.m_userData)
 					socket.emit( 'positions' , { id: bb.m_userData,
+												velocity: bb.GetLinearVelocity(),
 												position: bodyPos,
 												shape: shape } );
 

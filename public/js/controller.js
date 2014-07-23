@@ -52,7 +52,8 @@ var Controller = function() {
 		console.log(id + ' joined the game');
 		self.players.push( new Player( id ) );
 	}).on('player disconnected', function (data) {
-		// body...
+		console.log(id + ' left the game');
+		
 	});
 }
 
@@ -72,6 +73,8 @@ Controller.prototype.update = function() {
 
 Controller.prototype.updateScore = function() {
 
+	// for(var i = 0; i < )
+	// this.players[]
 	$('#scoreLeft').html('<span style="font-size: 64px;">' + this.players[0].score + '</span>');
 
 	$('#scoreRight').html('<span style="font-size: 64px;">' + this.players[1].score + '</span>');
