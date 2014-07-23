@@ -116,9 +116,7 @@ function draw () {
 			// loop through all our fixtures;
 			for(var bf = bb.GetFixtureList(); bf; bf = bf.GetNext()) {
 				var shape = bf.GetShape();
-					socket.emit( 'positions' , { id: bb.m_userData,
-												position: bodyPos,
-												shape: shape } );
+
 				if(shape.GetType() == 1) {
 					// if(bb.m_userData != 'left' && bb.m_userData != 'right'){
 

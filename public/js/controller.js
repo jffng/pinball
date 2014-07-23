@@ -73,10 +73,14 @@ Controller.prototype.update = function() {
 
 Controller.prototype.updateScore = function() {
 
-	// for(var i = 0; i < )
-	// this.players[]
-	$('#scoreLeft').html('<span style="font-size: 64px;">' + this.players[0].score + '</span>');
+	for(var i = 0; i < this.players.length; i++){
 
-	$('#scoreRight').html('<span style="font-size: 64px;">' + this.players[1].score + '</span>');
+		var id = this.players[i].id;
+
+		if( id === leftPlayer ) 	$('#scoreLeft').html('<span style="font-size: 64px;">' + this.players[i].score + '</span>');
+
+		else						$('#scoreRight').html('<span style="font-size: 64px;">' + this.players[i].score + '</span>');
+
+	}
 
 };
